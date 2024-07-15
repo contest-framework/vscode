@@ -49,7 +49,7 @@
       },
       {
         "command": "tertestrial-vscode.autoTestCurrentFile",
-        "title": "Tertestrial: Auto-test the currently open file on save"
+        "title": "Tertestrial: Auto-test the current file on save"
       }
     ],
     "jsonValidation": [
