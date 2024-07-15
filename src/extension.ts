@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("tertestrial-vscode.testFile", runSafe(testFile)),
     vscode.commands.registerCommand("tertestrial-vscode.testFileLine", runSafe(testFileLine)),
     vscode.commands.registerCommand("tertestrial-vscode.repeatTest", runSafe(repeatTest)),
-    vscode.commands.registerCommand("tertestrial-vscode.autoTest", runSafe(repeatTest)),
+    vscode.commands.registerCommand("tertestrial-vscode.autoTest", runSafe(autoTest)),
     vscode.commands.registerCommand("tertestrial-vscode.stopTest", runSafe(stopTest)),
     vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoRepeat),
     vscode.commands.registerCommand("tertestrial-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
