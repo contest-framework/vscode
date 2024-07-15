@@ -69,9 +69,9 @@ let autoRepeat = false
 function switchAutoRepeat() {
   autoRepeat = !autoRepeat
   if (autoRepeat) {
-    notification.display("auto-repeat ON")
+    notification.display("auto-repeat last test ON")
   } else {
-    notification.display("auto-repeat OFF")
+    notification.display("auto-repeat last test OFF")
   }
 }
 
