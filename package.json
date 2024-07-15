@@ -75,7 +75,7 @@
     "prettier": "3.3.3",
     "text-runner": "5.0.2",
     "textrun-make": "0.1.0",
-    "ts-node": "^10.9.2",
+    "ts-node": "10.9.2",
     "typescript": "5.5.3",
     "typescript-eslint": "7.16.1",
     "vsce": "2.15.0"
