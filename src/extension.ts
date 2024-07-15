@@ -74,28 +74,22 @@ enum ActionOnSave {
 let actionOnSave: ActionOnSave = ActionOnSave.none
 
 function switchAutoRepeat() {
-  switch (actionOnSave) {
-    case (ActionOnSave.none, ActionOnSave.testCurrentFile):
-      actionOnSave = ActionOnSave.repeatLastTest
-      notification.display("auto-repeat ON")
-      break
-    case ActionOnSave.repeatLastTest:
-      actionOnSave = ActionOnSave.none
-      notification.display("auto-repeat OFF")
-      break
+  if (actionOnSave === ActionOnSave.repeatLastTest) {
+    actionOnSave = ActionOnSave.none
+    notification.display("auto-repeat OFF")
+  } else {
+    actionOnSave = ActionOnSave.repeatLastTest
+    notification.display("auto-repeat ON")
   }
 }
 
 function switchAutoTestCurrentFile() {
-  switch (actionOnSave) {
-    case (ActionOnSave.none, ActionOnSave.repeatLastTest):
-      actionOnSave = ActionOnSave.testCurrentFile
-      notification.display("auto-test current file ON")
-      break
-    case ActionOnSave.testCurrentFile:
-      actionOnSave = ActionOnSave.none
-      notification.display("auto-test current file OFF")
-      break
+  if (actionOnSave === ActionOnSave.testCurrentFile) {
+    actionOnSave = ActionOnSave.none
+    notification.display("auto-test current file OFF")
+  } else {
+    actionOnSave = ActionOnSave.testCurrentFile
+    notification.display("auto-test current file ON")
   }
 }
 
