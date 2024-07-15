@@ -41,6 +41,10 @@ Visual Studio marketplace. Please don't forget to also install the
     <td><b>autoRepeat</b></td>
     <td>Start/Stop auto-repeat on file save</td>
   </tr>
+  <tr>
+    <td><b>autoTestCurrentFile</b></td>
+    <td>Auto-test the currently open file on save</td>
+  </tr>
 </table>
 
 ### develop

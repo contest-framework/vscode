@@ -58,8 +58,8 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
     } catch (e) {
       if (e instanceof UserError) {
         vscode.window.showErrorMessage(e.message)
-        if (actionOnSave !== ActionOnSave.None) {
-          actionOnSave = ActionOnSave.None
+        if (actionOnSave !== ActionOnSave.none) {
+          actionOnSave = ActionOnSave.none
           notification.display("auto-repeat OFF")
         }
       } else {
@@ -72,21 +72,21 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
 
 /** which action should happen when the user saves a file */
 enum ActionOnSave {
-  None,
-  TestCurrentFile,
-  RepeatLastTest,
+  none,
+  testCurrentFile,
+  repeatLastTest,
 }
 
-let actionOnSave: ActionOnSave = ActionOnSave.None
+let actionOnSave: ActionOnSave = ActionOnSave.none
 
 function switchAutoRepeat() {
   switch (actionOnSave) {
-    case ActionOnSave.None, ActionOnSave.TestCurrentFile:
-      actionOnSave = ActionOnSave.RepeatLastTest
+    case (ActionOnSave.none, ActionOnSave.testCurrentFile):
+      actionOnSave = ActionOnSave.repeatLastTest
       notification.display("auto-repeat ON")
       break
-    case ActionOnSave.RepeatLastTest:
-      actionOnSave = ActionOnSave.None
+    case ActionOnSave.repeatLastTest:
+      actionOnSave = ActionOnSave.none
       notification.display("auto-repeat OFF")
       break
   }
@@ -94,12 +94,12 @@ function switchAutoRepeat() {
 
 function switchAutoTestCurrentFile() {
   switch (actionOnSave) {
-    case ActionOnSave.None, ActionOnSave.RepeatLastTest:
-      actionOnSave = ActionOnSave.TestCurrentFile
+    case (ActionOnSave.none, ActionOnSave.repeatLastTest):
+      actionOnSave = ActionOnSave.testCurrentFile
       notification.display("auto-test current file ON")
       break
-    case ActionOnSave.TestCurrentFile:
-      actionOnSave = ActionOnSave.None
+    case ActionOnSave.testCurrentFile:
+      actionOnSave = ActionOnSave.none
       notification.display("auto-test current file OFF")
       break
   }
@@ -107,13 +107,13 @@ function switchAutoTestCurrentFile() {
 
 function documentSaved() {
   switch (actionOnSave) {
-    case ActionOnSave.RepeatLastTest:
+    case ActionOnSave.repeatLastTest:
       runSafe(repeatTest)()
       break
-    case ActionOnSave.TestCurrentFile:
+    case ActionOnSave.testCurrentFile:
       runSafe(testFile)
       break
-    case ActionOnSave.None:
+    case ActionOnSave.none:
       break
   }
 }
