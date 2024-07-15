@@ -10,8 +10,10 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("tertestrial-vscode.testFile", runSafe(testFile)),
     vscode.commands.registerCommand("tertestrial-vscode.testFileLine", runSafe(testFileLine)),
     vscode.commands.registerCommand("tertestrial-vscode.repeatTest", runSafe(repeatTest)),
+    vscode.commands.registerCommand("tertestrial-vscode.autoTest", runSafe(repeatTest)),
     vscode.commands.registerCommand("tertestrial-vscode.stopTest", runSafe(stopTest)),
-    vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoTest),
+    vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoRepeat),
+    vscode.commands.registerCommand("tertestrial-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
     vscode.workspace.onDidSaveTextDocument(documentSaved),
   )
 }
@@ -39,6 +41,11 @@ async function repeatTest() {
   await pipe.send(`{ "command": "repeatTest" }`)
 }
 
+async function autoTest() {
+  notification.display("auto-test the current file on save")
+  await pipe.send(`{ "command": "autoTest" }`)
+}
+
 async function stopTest() {
   notification.display("stopping the current test")
   await pipe.send(`{ "command": "stopTest" }`)
@@ -51,8 +58,8 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
     } catch (e) {
       if (e instanceof UserError) {
         vscode.window.showErrorMessage(e.message)
-        if (autoRepeat) {
-          autoRepeat = false
+        if (actionOnSave != ActionOnSave.None) {
+          actionOnSave = ActionOnSave.None
           notification.display("auto-repeat OFF")
         }
       } else {
@@ -63,20 +70,50 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
   return runAndCatch.bind(null, f)
 }
 
-/** indicates whether auto-repeating is enabled on file save */
-let autoRepeat = false
+/** which action should happen when the user saves a file */
+enum ActionOnSave {
+  None,
+  TestCurrentFile,
+  RepeatLastTest,
+}
 
-function switchAutoTest() {
-  autoRepeat = !autoRepeat
-  if (autoRepeat) {
-    notification.display("auto-repeat ON")
-  } else {
-    notification.display("auto-repeat OFF")
+let actionOnSave: ActionOnSave = ActionOnSave.None
+
+function switchAutoRepeat() {
+  switch (actionOnSave) {
+    case ActionOnSave.None, ActionOnSave.TestCurrentFile:
+      actionOnSave = ActionOnSave.RepeatLastTest
+      notification.display("auto-repeat ON")
+      break
+    case ActionOnSave.RepeatLastTest:
+      actionOnSave = ActionOnSave.None
+      notification.display("auto-repeat OFF")
+      break
+  }
+}
+
+function switchAutoTestCurrentFile() {
+  switch (actionOnSave) {
+    case ActionOnSave.None, ActionOnSave.RepeatLastTest:
+      actionOnSave = ActionOnSave.TestCurrentFile
+      notification.display("auto-test current file ON")
+      break
+    case ActionOnSave.TestCurrentFile:
+      actionOnSave = ActionOnSave.None
+      notification.display("auto-test current file OFF")
+      break
   }
 }
 
 function documentSaved() {
-  if (autoRepeat) {
-    runSafe(repeatTest)()
+  switch (actionOnSave) {
+    case ActionOnSave.RepeatLastTest:
+      runSafe(repeatTest)()
+      break
+    case ActionOnSave.TestCurrentFile:
+      runSafe(testFile)
+      break
+    case ActionOnSave.None:
+      break
   }
 }
