@@ -43,7 +43,7 @@ Visual Studio marketplace. Please don't forget to also install the
   </tr>
   <tr>
     <td><b>autoTestCurrentFile</b></td>
-    <td>Auto-test the currently open file on save</td>
+    <td>Auto-test the current file on save</td>
   </tr>
 </table>
 
