@@ -64,7 +64,7 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
   return runAndCatch.bind(null, f)
 }
 
-/** which action should happen when the user saves a file */
+/** the action that should happen when the user saves a file */
 enum ActionOnSave {
   none,
   testCurrentFile,
