@@ -6,11 +6,11 @@ import { UserError } from "./user_error"
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("tertestrial-vscode.testAll", runSafe(testAll)),
-    vscode.commands.registerCommand("tertestrial-vscode.testFile", runSafe(testFile)),
-    vscode.commands.registerCommand("tertestrial-vscode.testFileLine", runSafe(testFileLine)),
-    vscode.commands.registerCommand("tertestrial-vscode.repeatTest", runSafe(repeatTest)),
-    vscode.commands.registerCommand("tertestrial-vscode.stopTest", runSafe(stopTest)),
+    vscode.commands.registerCommand("tertestrial-vscode.testAll", wrapLogger(testAll)),
+    vscode.commands.registerCommand("tertestrial-vscode.testFile", wrapLogger(testFile)),
+    vscode.commands.registerCommand("tertestrial-vscode.testFileLine", wrapLogger(testFileLine)),
+    vscode.commands.registerCommand("tertestrial-vscode.repeatTest", wrapLogger(repeatTest)),
+    vscode.commands.registerCommand("tertestrial-vscode.stopTest", wrapLogger(stopTest)),
     vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoRepeat),
     vscode.commands.registerCommand("tertestrial-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
     vscode.workspace.onDidSaveTextDocument(documentSaved),
@@ -45,7 +45,8 @@ async function stopTest() {
   await pipe.send(`{ "command": "stopTest" }`)
 }
 
-function runSafe(f: () => Promise<void>): () => Promise<void> {
+/// provides a function that executes the given function and logs UserErrors
+function wrapLogger(f: () => Promise<void>): () => Promise<void> {
   const runAndCatch = async function (f: () => Promise<void>) {
     try {
       await f()
@@ -96,10 +97,10 @@ function switchAutoTestCurrentFile() {
 function documentSaved() {
   switch (actionOnSave) {
     case ActionOnSave.repeatLastTest:
-      runSafe(repeatTest)()
+      wrapLogger(repeatTest)()
       break
     case ActionOnSave.testCurrentFile:
-      runSafe(testFile)()
+      wrapLogger(testFile)()
       break
     case ActionOnSave.none:
       break
