@@ -12,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("tertestrial-vscode.repeatTest", runSafe(repeatTest)),
     vscode.commands.registerCommand("tertestrial-vscode.stopTest", runSafe(stopTest)),
     vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoRepeat),
+    vscode.commands.registerCommand("tertestrial-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
     vscode.workspace.onDidSaveTextDocument(documentSaved),
   )
 }
@@ -51,9 +52,9 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
     } catch (e) {
       if (e instanceof UserError) {
         vscode.window.showErrorMessage(e.message)
-        if (autoRepeat) {
-          autoRepeat = false
-          notification.display("auto-repeat OFF")
+        if (actionOnSave !== ActionOnSave.none) {
+          actionOnSave = ActionOnSave.none
+          notification.display("auto-testing OFF")
         }
       } else {
         throw e
@@ -63,20 +64,44 @@ function runSafe(f: () => Promise<void>): () => Promise<void> {
   return runAndCatch.bind(null, f)
 }
 
-/** indicates whether auto-repeating is enabled on file save */
-let autoRepeat = false
+/** the action that should happen when the user saves a file */
+enum ActionOnSave {
+  none,
+  testCurrentFile,
+  repeatLastTest,
+}
+
+let actionOnSave: ActionOnSave = ActionOnSave.none
 
 function switchAutoRepeat() {
-  autoRepeat = !autoRepeat
-  if (autoRepeat) {
-    notification.display("auto-repeat last test ON")
-  } else {
+  if (actionOnSave === ActionOnSave.repeatLastTest) {
+    actionOnSave = ActionOnSave.none
     notification.display("auto-repeat last test OFF")
+  } else {
+    actionOnSave = ActionOnSave.repeatLastTest
+    notification.display("auto-repeat last test ON")
+  }
+}
+
+function switchAutoTestCurrentFile() {
+  if (actionOnSave === ActionOnSave.testCurrentFile) {
+    actionOnSave = ActionOnSave.none
+    notification.display("auto-test current file OFF")
+  } else {
+    actionOnSave = ActionOnSave.testCurrentFile
+    notification.display("auto-test current file ON")
   }
 }
 
 function documentSaved() {
-  if (autoRepeat) {
-    runSafe(repeatTest)()
+  switch (actionOnSave) {
+    case ActionOnSave.repeatLastTest:
+      runSafe(repeatTest)()
+      break
+    case ActionOnSave.testCurrentFile:
+      runSafe(testFile)()
+      break
+    case ActionOnSave.none:
+      break
   }
 }

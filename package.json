@@ -46,6 +46,10 @@
       {
         "command": "tertestrial-vscode.autoRepeat",
         "title": "Tertestrial: Start/Stop auto-repeat on file save"
+      },
+      {
+        "command": "tertestrial-vscode.autoTestCurrentFile",
+        "title": "Tertestrial: Auto-test the current file on save"
       }
     ],
     "jsonValidation": [
