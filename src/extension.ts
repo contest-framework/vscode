@@ -99,7 +99,7 @@ function documentSaved() {
       runSafe(repeatTest)()
       break
     case ActionOnSave.testCurrentFile:
-      testFile()
+      runSafe(testFile)()
       break
     case ActionOnSave.none:
       break
