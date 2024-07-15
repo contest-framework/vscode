@@ -76,10 +76,10 @@ let actionOnSave: ActionOnSave = ActionOnSave.none
 function switchAutoRepeat() {
   if (actionOnSave === ActionOnSave.repeatLastTest) {
     actionOnSave = ActionOnSave.none
-    notification.display("auto-repeat OFF")
+    notification.display("auto-repeat last test OFF")
   } else {
     actionOnSave = ActionOnSave.repeatLastTest
-    notification.display("auto-repeat ON")
+    notification.display("auto-repeat last test ON")
   }
 }
 
