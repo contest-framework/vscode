@@ -6,13 +6,13 @@ import { UserError } from "./user_error"
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("tertestrial-vscode.testAll", wrapLogger(testAll)),
-    vscode.commands.registerCommand("tertestrial-vscode.testFile", wrapLogger(testFile)),
-    vscode.commands.registerCommand("tertestrial-vscode.testFileLine", wrapLogger(testFileLine)),
-    vscode.commands.registerCommand("tertestrial-vscode.repeatTest", wrapLogger(repeatTest)),
-    vscode.commands.registerCommand("tertestrial-vscode.stopTest", wrapLogger(stopTest)),
-    vscode.commands.registerCommand("tertestrial-vscode.autoRepeat", switchAutoRepeat),
-    vscode.commands.registerCommand("tertestrial-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
+    vscode.commands.registerCommand("contest-vscode.testAll", wrapLogger(testAll)),
+    vscode.commands.registerCommand("contest-vscode.testFile", wrapLogger(testFile)),
+    vscode.commands.registerCommand("contest-vscode.testFileLine", wrapLogger(testFileLine)),
+    vscode.commands.registerCommand("contest-vscode.repeatTest", wrapLogger(repeatTest)),
+    vscode.commands.registerCommand("contest-vscode.stopTest", wrapLogger(stopTest)),
+    vscode.commands.registerCommand("contest-vscode.autoRepeat", switchAutoRepeat),
+    vscode.commands.registerCommand("contest-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
     vscode.workspace.onDidSaveTextDocument(documentSaved),
   )
 }
