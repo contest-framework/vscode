@@ -1,6 +1,6 @@
 # <img src="icons/300.png" width="50" height="41" valign="bottom"> Contest client for VSCode
 
-![CI badge](https://github.com/contest/vscode/actions/workflows/main.yml/badge.svg)
+![CI badge](https://github.com/contest-framework/vscode/actions/workflows/main.yml/badge.svg)
 
 ### install
 
