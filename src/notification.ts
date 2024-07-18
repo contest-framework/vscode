@@ -4,7 +4,7 @@ import * as util from "util"
 const delay = util.promisify(setTimeout)
 
 export async function display(text: string) {
-  const notification = vscode.window.setStatusBarMessage(`Tertestrial: ${text}`)
+  const notification = vscode.window.setStatusBarMessage(`Contest: ${text}`)
   await delay(5000)
   notification.dispose()
 }

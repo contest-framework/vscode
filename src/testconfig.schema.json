@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "title": "Tertestrial configuration",
+  "title": "Contest configuration",
   "type": "object",
   "properties": {
     "actions": {
@@ -14,15 +14,15 @@
               "command": {
                 "type": "string",
                 "enum": ["testAll", "testFile", "testFileLine", "repeatTest", "stopTest"],
-                "description": "command sent from the Tertestrial client"
+                "description": "command sent from the Contest client"
               },
               "file": {
                 "type": "string",
-                "description": "filename sent from the Tertestrial client"
+                "description": "filename sent from the Contest client"
               },
               "line": {
                 "type": "string",
-                "description": "line sent from the Tertestrial client"
+                "description": "line sent from the Contest client"
               }
             }
           },
@@ -36,11 +36,11 @@
     },
     "options": {
       "type": "object",
-      "description": "Tertestrial options",
+      "description": "Contest options",
       "properties": {
         "beforeRun": {
           "type": "object",
-          "description": "Things Tertestrial does before executing the test",
+          "description": "Things Contest does before executing the test",
           "properties": {
             "clearScreen": {
               "type": "boolean",
@@ -55,7 +55,7 @@
         },
         "afterRun": {
           "type": "object",
-          "description": "Things Tertestrial does after executing the test",
+          "description": "Things Contest does after executing the test",
           "properties": {
             "newlines": {
               "type": "number",

@@ -10,8 +10,8 @@ export function commands(action: tr.actions.Args) {
 function exportedCommands() {
   const config = require("../package.json")
   const result = []
-  const commandRE = /^tertestrial-vscode\./
-  const titleRE = /^Tertestrial: /
+  const commandRE = /^contest-vscode\./
+  const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
     result.push(`${command.command.replace(commandRE, "")}: ${command.title.replace(titleRE, "")}`)
   }

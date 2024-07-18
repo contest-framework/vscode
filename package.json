@@ -1,17 +1,17 @@
 {
-  "name": "tertestrial-vscode",
-  "displayName": "Tertestrial",
-  "description": "The official Tertestrial plugin for VSCode",
+  "name": "contest-vscode",
+  "displayName": "Contest",
+  "description": "The official Contest plugin for VSCode",
   "publisher": "kevgo",
   "version": "0.3.0",
   "license": "ISC",
   "icon": "icons/600.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tertestrial/vscode"
+    "url": "https://github.com/contest/vscode"
   },
   "bugs": {
-    "url": "https://github.com/kevgo/tertestrial/vscode/issues"
+    "url": "https://github.com/kevgo/contest/vscode/issues"
   },
   "engines": {
     "vscode": "^1.91.0"
@@ -24,32 +24,32 @@
   "contributes": {
     "commands": [
       {
-        "command": "tertestrial-vscode.testAll",
-        "title": "Tertestrial: Test everything"
+        "command": "contest-vscode.testAll",
+        "title": "Contest: Test everything"
       },
       {
-        "command": "tertestrial-vscode.testFile",
-        "title": "Tertestrial: Test this file"
+        "command": "contest-vscode.testFile",
+        "title": "Contest: Test this file"
       },
       {
-        "command": "tertestrial-vscode.testFileLine",
-        "title": "Tertestrial: Test the code at this line in this file"
+        "command": "contest-vscode.testFileLine",
+        "title": "Contest: Test the code at this line in this file"
       },
       {
-        "command": "tertestrial-vscode.repeatTest",
-        "title": "Tertestrial: Repeat the last test"
+        "command": "contest-vscode.repeatTest",
+        "title": "Contest: Repeat the last test"
       },
       {
-        "command": "tertestrial-vscode.stopTest",
-        "title": "Tertestrial: Stop the current test"
+        "command": "contest-vscode.stopTest",
+        "title": "Contest: Stop the current test"
       },
       {
-        "command": "tertestrial-vscode.autoRepeat",
-        "title": "Tertestrial: Start/Stop auto-repeat on file save"
+        "command": "contest-vscode.autoRepeat",
+        "title": "Contest: Start/Stop auto-repeat on file save"
       },
       {
-        "command": "tertestrial-vscode.autoTestCurrentFile",
-        "title": "Tertestrial: Auto-test the current file on save"
+        "command": "contest-vscode.autoTestCurrentFile",
+        "title": "Contest: Auto-test the current file on save"
       }
     ],
     "jsonValidation": [

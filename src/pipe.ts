@@ -3,7 +3,7 @@ import { promises as fs } from "fs"
 import * as workspace from "./workspace"
 import { UserError } from "./user_error"
 
-const PIPE_FILENAME = ".tertestrial.tmp"
+const PIPE_FILENAME = ".contest.tmp"
 
 export async function send(text: string) {
   // get pipe file path
@@ -18,7 +18,7 @@ export async function send(text: string) {
     stat = await fs.stat(pipePath)
   } catch (e: any) {
     if (e.code === "ENOENT") {
-      throw new UserError("Please start the Tertestrial server first")
+      throw new UserError("Please start the Contest server first")
     } else {
       throw new UserError(`Cannot read pipe: ${e}`)
     }
