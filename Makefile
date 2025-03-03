@@ -4,6 +4,7 @@ doc:  # runs the documentation tests
 fix:  # auto-corrects all formatting issues
 	${CURDIR}/node_modules/.bin/eslint . --fix --ext .ts
 	${CURDIR}/node_modules/.bin/prettier --write .
+	${CURDIR}/node_modules/.bin/sort-package-json
 
 help:   # shows all available Make commands
 	cat Makefile | grep '^[^ ]*:' | grep -v '.PHONY' | grep -v '.SILENT' | grep -v help | sed 's/:.*#/#/' | column -s "#" -t

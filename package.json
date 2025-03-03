@@ -1,26 +1,29 @@
 {
   "name": "contest-vscode",
   "displayName": "Contest",
-  "description": "The official Contest plugin for VSCode",
-  "publisher": "kevgo",
   "version": "0.3.0",
-  "license": "ISC",
-  "icon": "icons/600.png",
+  "description": "The official Contest plugin for VSCode",
+  "categories": [
+    "Other"
+  ],
+  "bugs": {
+    "url": "https://github.com/kevgo/contest/vscode/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/contest/vscode"
   },
-  "bugs": {
-    "url": "https://github.com/kevgo/contest/vscode/issues"
-  },
-  "engines": {
-    "vscode": "^1.91.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
+  "license": "ISC",
+  "publisher": "kevgo",
   "main": "./out/extension.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
   "contributes": {
     "commands": [
       {
@@ -59,14 +62,7 @@
       }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
+  "activationEvents": [],
   "devDependencies": {
     "@types/node": "20.14.10",
     "@types/vscode": "1.91.0",
@@ -80,5 +76,9 @@
     "typescript": "5.5.3",
     "typescript-eslint": "7.16.1",
     "vsce": "2.15.0"
-  }
+  },
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "icon": "icons/600.png"
 }
