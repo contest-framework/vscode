@@ -1,5 +1,5 @@
 doc:  # runs the documentation tests
-	${CURDIR}/node_modules/.bin/text-run --format=dot
+	${CURDIR}/node_modules/.bin/text-runner --format=dot
 
 fix:  # auto-corrects all formatting issues
 	${CURDIR}/node_modules/.bin/eslint . --fix --ext .ts
