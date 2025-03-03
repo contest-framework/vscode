@@ -16,16 +16,16 @@ package:  # package the extension for local installation
 	vsce package
 
 publish-patch:  # publishes a new patch version
-	vsce publish patch --no-yarn
+	vsce publish patch
 
 publish-minor:  # publishes a new minor version
-	vsce publish minor --no-yarn
+	vsce publish minor
 
 publish-major:  # publishes a new major version
-	vsce publish major --no-yarn
+	vsce publish major
 
 setup:  # prepare this code base for development
-	yarn install
+	npm install
 
 test:  # runs all the tests
 	${CURDIR}/node_modules/.bin/tsc -p .
@@ -33,7 +33,8 @@ test:  # runs all the tests
 	make --no-print-directory doc
 
 update:  # updates all dependencies
-	yarn upgrade --latest
+	npx npm-check-updates -u
+	npm install
 
 .DEFAULT_GOAL := help
 .SILENT:
