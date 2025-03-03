@@ -4,6 +4,7 @@ doc:  # runs the documentation tests
 fix:  # auto-corrects all formatting issues
 	${CURDIR}/node_modules/.bin/eslint . --fix --ext .ts
 	${CURDIR}/node_modules/.bin/prettier --write .
+	${CURDIR}/node_modules/.bin/sort-package-json --quiet
 
 help:   # shows all available Make commands
 	cat Makefile | grep '^[^ ]*:' | grep -v '.PHONY' | grep -v '.SILENT' | grep -v help | sed 's/:.*#/#/' | column -s "#" -t
@@ -11,6 +12,7 @@ help:   # shows all available Make commands
 lint:  # runs all linters
 	${CURDIR}/node_modules/.bin/eslint . --ext .ts
 	${CURDIR}/node_modules/.bin/prettier -l .
+	${CURDIR}/node_modules/.bin/sort-package-json --check --quiet
 
 package:  # package the extension for local installation
 	vsce package
