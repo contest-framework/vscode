@@ -4,7 +4,7 @@
 
 - clone the repo
 - install [Node.js](https://nodejs.org)
-- run <code type="make/command">make setup</code>
+- run <code type="node/script">make setup</code>
 
 ### test
 

@@ -16,5 +16,5 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "20"
-      - run: make setup
-      - run: make test
+      - run: npm run setup
+      - run: npm run test

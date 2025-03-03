@@ -2,7 +2,7 @@
   "actions": [
     {
       "trigger": { "command": "testAll" },
-      "run": "make test"
+      "run": "npm run test"
     }
   ]
 }
