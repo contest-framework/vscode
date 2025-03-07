@@ -14,7 +14,7 @@ function exportedCommands() {
   const __dirname = url.fileURLToPath(new URL(".", import.meta.url))
   const configPath = path.join(__dirname, "..", "package.json")
   const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
-  const result = []
+  const result: string[] = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
@@ -26,7 +26,7 @@ function exportedCommands() {
 }
 
 function documentedCommands(nodes: tr.ast.NodeList) {
-  const result = []
+  const result: string[] = []
   for (const node of nodes.nodesOfTypes("tr_open")) {
     const row = nodes.nodesFor(node)
     const cells = row.nodesOfTypes("td_open")
