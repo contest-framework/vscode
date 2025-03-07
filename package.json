@@ -20,7 +20,7 @@
     "compile": "tsc -p ./",
     "doc": "text-runner",
     "fix": "eslint . --fix --ext .ts && prettier --write . && sort-package-json --quiet",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src --ext ts && prettier -l . && sort-package-json --check --quiet",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
     "vscode:prepublish": "npm run compile",
