@@ -1,15 +1,15 @@
 import * as tr from "text-runner"
 import * as assertNoDiff from "assert-no-diff"
-import { promises as fs } from "fs"
+import * as fs from "fs"
 
-export async function commands(action: tr.actions.Args) {
+export function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)
   const exported = exportedCommands()
-  assertNoDiff.json(documented, await exported)
+  assertNoDiff.json(documented, exported)
 }
 
-async function exportedCommands() {
-  const config = JSON.parse(await fs.readFile("../package.json", "utf-8"))
+function exportedCommands() {
+  const config = JSON.parse(fs.readFileSync("../package.json", "utf-8"))
   const result = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
