@@ -6,26 +6,32 @@ import perfectionist from "eslint-plugin-perfectionist"
 
 export default [
   {
-    files: ["**/*.ts"],
-    ignores: ["**/node_modules/", ".git/", "dist/", "**/dist/**"],
+    files: ["src/**/*.ts"],
+    ignores: ["node_modules/", ".git/", "out/", "text-runner/"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "module",
-      parser: tsParser,
-      parserOptions: {
-        project: "./tsconfig.json",
-      },
       globals: {
         console: "readonly",
         module: "readonly",
         process: "readonly",
       },
+      parser: tsParser,
+      parserOptions: {
+        project: "./tsconfig.json",
+      },
+      sourceType: "module",
     },
     plugins: {
       "@typescript-eslint": tslintPlugin,
     },
     rules: {
       ...tslintPlugin.configs.recommended.rules,
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-implied-eval": "off",
+      "@typescript-eslint/no-unsafe-call": "error",
+      "@typescript-eslint/no-unused-vars": "off", // TODO: enable?
+      "@typescript-eslint/restrict-template-expressions": "off",
       "no-empty-function": "error",
       "prefer-const": [
         "error",
@@ -34,12 +40,6 @@ export default [
           ignoreReadBeforeAssign: false,
         },
       ],
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/ban-ts-comment": "off",
-      "@typescript-eslint/no-implied-eval": "off",
-      "@typescript-eslint/restrict-template-expressions": "off",
-      "@typescript-eslint/no-unused-vars": "off", // TODO: enable?
-      "@typescript-eslint/no-unsafe-call": "error",
     },
   },
   perfectionist.configs["recommended-natural"],

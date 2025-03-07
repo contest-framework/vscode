@@ -19,8 +19,8 @@
   "scripts": {
     "compile": "tsc -p ./",
     "doc": "text-runner",
-    "fix": "eslint . --fix --ext .ts && dprint fmt && sort-package-json --quiet",
-    "lint": "eslint src --ext ts && dprint check && sort-package-json --check --quiet",
+    "fix": "eslint --fix && dprint fmt && sort-package-json --quiet",
+    "lint": "eslint && dprint check && sort-package-json --check --quiet",
     "package": "vsce package",
     "publish-major": "vsce publish major",
     "publish-minor": "vsce publish minor",

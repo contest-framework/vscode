@@ -1,4 +1,5 @@
 import * as vscode from "vscode"
+
 import * as notification from "./notification"
 import * as pipe from "./pipe"
 import { UserError } from "./user_error"
@@ -29,42 +30,17 @@ export function activate(context: vscode.ExtensionContext) {
   )
 }
 
-async function testAll() {
-  notification.display("testing all files")
-  lastTest = `{ "command": "testAll" }`
-  await pipe.send(lastTest)
-}
-
-async function testFile() {
-  const relPath = workspace.currentFile()
-  notification.display(`testing file ${relPath}`)
-  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
-  await pipe.send(lastTest)
-}
-
-async function testFileOnSave() {
-  actionOnSave = ActionOnSave.repeatLastTest
-  const relPath = workspace.currentFile()
-  notification.display(`testing file ${relPath} on save`)
-  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
-  await pipe.send(lastTest)
-}
-
-async function testFileLine() {
-  const relPath = workspace.currentFile()
-  const line = workspace.currentLine() + 1
-  notification.display(`testing function at ${relPath}:${line}`)
-  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
-  await pipe.send(lastTest)
-}
-
-async function testFileLineOnSave() {
-  actionOnSave = ActionOnSave.repeatLastTest
-  const relPath = workspace.currentFile()
-  const line = workspace.currentLine() + 1
-  notification.display(`testing function at ${relPath}:${line} on save`)
-  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
-  await pipe.send(lastTest)
+function documentSaved() {
+  switch (actionOnSave) {
+    case ActionOnSave.none:
+      break
+    case ActionOnSave.repeatLastTest:
+      wrapLogger(repeatTest)()
+      break
+    case ActionOnSave.testCurrentFile:
+      wrapLogger(testFile)()
+      break
+  }
 }
 
 async function repeatTest() {
@@ -79,26 +55,6 @@ async function repeatTest() {
 async function stopTest() {
   notification.display("stopping the current test")
   await pipe.send(`{ "command": "stopTest" }`)
-}
-
-/// provides a function that executes the given function and logs UserErrors
-function wrapLogger(f: () => Promise<void>): () => Promise<void> {
-  const runAndCatch = async function(f: () => Promise<void>) {
-    try {
-      await f()
-    } catch (e) {
-      if (e instanceof UserError) {
-        vscode.window.showErrorMessage(e.message)
-        if (actionOnSave !== ActionOnSave.none) {
-          actionOnSave = ActionOnSave.none
-          notification.display("auto-testing OFF")
-        }
-      } else {
-        throw e
-      }
-    }
-  }
-  return runAndCatch.bind(null, f)
 }
 
 function switchAutoRepeat() {
@@ -121,15 +77,60 @@ function switchAutoTestCurrentFile() {
   }
 }
 
-function documentSaved() {
-  switch (actionOnSave) {
-    case ActionOnSave.repeatLastTest:
-      wrapLogger(repeatTest)()
-      break
-    case ActionOnSave.testCurrentFile:
-      wrapLogger(testFile)()
-      break
-    case ActionOnSave.none:
-      break
+async function testAll() {
+  notification.display("testing all files")
+  lastTest = `{ "command": "testAll" }`
+  await pipe.send(lastTest)
+}
+
+async function testFile() {
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath}`)
+  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
+  await pipe.send(lastTest)
+}
+
+async function testFileLine() {
+  const relPath = workspace.currentFile()
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line}`)
+  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
+}
+
+async function testFileLineOnSave() {
+  actionOnSave = ActionOnSave.repeatLastTest
+  const relPath = workspace.currentFile()
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line} on save`)
+  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
+}
+
+async function testFileOnSave() {
+  actionOnSave = ActionOnSave.repeatLastTest
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath} on save`)
+  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
+  await pipe.send(lastTest)
+}
+
+/// provides a function that executes the given function and logs UserErrors
+function wrapLogger(f: () => Promise<void>): () => Promise<void> {
+  const runAndCatch = async function(f: () => Promise<void>) {
+    try {
+      await f()
+    } catch (e) {
+      if (e instanceof UserError) {
+        vscode.window.showErrorMessage(e.message)
+        if (actionOnSave !== ActionOnSave.none) {
+          actionOnSave = ActionOnSave.none
+          notification.display("auto-testing OFF")
+        }
+      } else {
+        throw e
+      }
+    }
   }
+  return runAndCatch.bind(null, f)
 }
