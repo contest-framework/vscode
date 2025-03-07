@@ -1,7 +1,7 @@
-import * as path from "path"
 import { promises as fs } from "fs"
-import * as workspace from "./workspace"
+import * as path from "path"
 import { UserError } from "./user_error"
+import * as workspace from "./workspace"
 
 const PIPE_FILENAME = ".contest.tmp"
 
