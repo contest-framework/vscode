@@ -6,41 +6,38 @@ import perfectionist from "eslint-plugin-perfectionist"
 
 export default [
   {
-    files: ["src/**/*.ts"],
-    ignores: ["node_modules/", ".git/", "out/*", "text-runner/"],
+    files: ["src/*.ts"],
+    ignores: ["node_modules/", ".git/", "out/", "text-runner/"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
         console: "readonly",
         module: "readonly",
-        process: "readonly"
+        process: "readonly",
       },
       parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json"
+        project: "./tsconfig.json",
       },
-      sourceType: "module"
+      sourceType: "commonjs",
     },
     plugins: {
-      "@typescript-eslint": tslintPlugin
+      "@typescript-eslint": tslintPlugin,
     },
     rules: {
       ...tslintPlugin.configs.recommended.rules,
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-implied-eval": "off",
-      "@typescript-eslint/no-unsafe-call": "error",
-      "@typescript-eslint/no-unused-vars": "off", // TODO: enable?
       "@typescript-eslint/restrict-template-expressions": "off",
       "no-empty-function": "error",
       "prefer-const": [
         "error",
         {
           destructuring: "any",
-          ignoreReadBeforeAssign: false
-        }
-      ]
-    }
+          ignoreReadBeforeAssign: false,
+        },
+      ],
+    },
   },
-  perfectionist.configs["recommended-natural"]
+  perfectionist.configs["recommended-natural"],
 ]
