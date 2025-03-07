@@ -117,7 +117,7 @@ async function testFileOnSave() {
 
 /// provides a function that executes the given function and logs UserErrors
 function wrapLogger(f: () => Promise<void>): () => Promise<void> {
-  const runAndCatch = async function (f: () => Promise<void>) {
+  const runAndCatch = async function(f: () => Promise<void>) {
     try {
       await f()
     } catch (e) {

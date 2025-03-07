@@ -13,16 +13,16 @@ export default [
       globals: {
         console: "readonly",
         module: "readonly",
-        process: "readonly",
+        process: "readonly"
       },
       parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: "./tsconfig.json"
       },
-      sourceType: "commonjs",
+      sourceType: "commonjs"
     },
     plugins: {
-      "@typescript-eslint": tslintPlugin,
+      "@typescript-eslint": tslintPlugin
     },
     rules: {
       ...tslintPlugin.configs.recommended.rules,
@@ -34,10 +34,10 @@ export default [
         "error",
         {
           destructuring: "any",
-          ignoreReadBeforeAssign: false,
-        },
-      ],
-    },
+          ignoreReadBeforeAssign: false
+        }
+      ]
+    }
   },
-  perfectionist.configs["recommended-natural"],
+  perfectionist.configs["recommended-natural"]
 ]
