@@ -4,12 +4,11 @@
 
 - clone the repo
 - install [Node.js](https://nodejs.org)
-- run <code type="make/command">make setup</code>
+- run <code type="npm/script-call">npm run setup</code>
 
 ### test
 
-- run tests: <code type="make/command">make test</code>
-- see all dev scripts: <code type="make/command">make help</code>
+- run tests: <code type="npm/script-call">npm run test</code>
 
 To try the extension out locally:
 
@@ -20,7 +19,7 @@ To try the extension out locally:
 
 Local installation:
 
-- <code type="make/command">make package</code>
+- <code type="npm/script-call">npm run package</code>
 - run `code --install-extension contest-*.vsix` in terminal
 - restart VSCode
 
@@ -36,10 +35,10 @@ Debug in VSCode:
 
 ### update
 
-- <code type="make/command">make update</code>
+- <code type="npm/script-call">npm run update</code>
 
 ### release
 
-- <code type="make/command">make publish-patch</code>
-- <code type="make/command">make publish-minor</code>
-- <code type="make/command">make publish-major</code>
+- <code type="npm/script-call">npm run publish-patch</code>
+- <code type="npm/script-call">npm run publish-minor</code>
+- <code type="npm/script-call">npm run publish-major</code>

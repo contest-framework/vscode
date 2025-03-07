@@ -1,6 +1,8 @@
 import * as assertNoDiff from "assert-no-diff"
 import * as fs from "fs"
+import * as path from "path"
 import * as tr from "text-runner"
+import * as url from "url"
 
 export function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)
@@ -9,7 +11,9 @@ export function commands(action: tr.actions.Args) {
 }
 
 function exportedCommands() {
-  const config = JSON.parse(fs.readFileSync("../package.json", "utf-8"))
+  const __dirname = url.fileURLToPath(new URL(".", import.meta.url))
+  const configPath = path.join(__dirname, "..", "package.json")
+  const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
   const result = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
