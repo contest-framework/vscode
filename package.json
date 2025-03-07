@@ -26,7 +26,7 @@
     "publish-minor": "vsce publish minor",
     "publish-patch": "vsce publish patch",
     "setup": "npm install",
-    "test": "npm run compile && tsc -p . && npm run lint && npm run doc",
+    "test": "npm run compile && tsc && npm run fix && npm run lint && npm run doc",
     "update": "npx npm-check-updates -u && npm install",
     "vscode:prepublish": "npm run compile",
     "watch": "tsc -watch -p ./"
