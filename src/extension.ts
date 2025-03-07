@@ -4,7 +4,6 @@ import * as pipe from "./pipe"
 import { UserError } from "./user_error"
 import * as workspace from "./workspace"
 
-
 /** the action that should happen when the user saves a file */
 enum ActionOnSave {
   none,
@@ -50,7 +49,7 @@ async function testFileLine() {
 }
 
 async function repeatTest() {
-  if (lastTest == null) {
+  if (!lastTest) {
     notification.display("no test to repeat")
     return
   }
@@ -65,7 +64,7 @@ async function stopTest() {
 
 /// provides a function that executes the given function and logs UserErrors
 function wrapLogger(f: () => Promise<void>): () => Promise<void> {
-  const runAndCatch = async function (f: () => Promise<void>) {
+  const runAndCatch = async function(f: () => Promise<void>) {
     try {
       await f()
     } catch (e) {
@@ -82,7 +81,6 @@ function wrapLogger(f: () => Promise<void>): () => Promise<void> {
   }
   return runAndCatch.bind(null, f)
 }
-
 
 function switchAutoRepeat() {
   if (actionOnSave === ActionOnSave.repeatLastTest) {
