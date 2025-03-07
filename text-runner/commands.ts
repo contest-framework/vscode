@@ -1,6 +1,6 @@
-import * as tr from "text-runner"
 import * as assertNoDiff from "assert-no-diff"
 import * as fs from "fs"
+import * as tr from "text-runner"
 
 export function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)

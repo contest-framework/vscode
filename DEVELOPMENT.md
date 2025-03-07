@@ -15,7 +15,8 @@ To try the extension out locally:
 
 - run the tests to populate the local `out` folder
 - menu: Run > Run Without Debugging
-- in the new VSCode instance that pops up: File > Open Folder > select folder that isn't open in a VSCode instance yet
+- in the new VSCode instance that pops up: File > Open Folder > select folder
+  that isn't open in a VSCode instance yet
 
 Local installation:
 
