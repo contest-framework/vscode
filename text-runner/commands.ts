@@ -1,19 +1,22 @@
 import * as tr from "text-runner"
 import * as assertNoDiff from "assert-no-diff"
+import { promises as fs } from "fs"
 
-export function commands(action: tr.actions.Args) {
+export async function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)
   const exported = exportedCommands()
-  assertNoDiff.json(documented, exported)
+  assertNoDiff.json(documented, await exported)
 }
 
-function exportedCommands() {
-  const config = require("../package.json")
+async function exportedCommands() {
+  const config = JSON.parse(await fs.readFile("../package.json", "utf-8"))
   const result = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
-    result.push(`${command.command.replace(commandRE, "")}: ${command.title.replace(titleRE, "")}`)
+    const name = command.command.replace(commandRE, "")
+    const title = command.title.replace(titleRE, "")
+    result.push(`${name}: ${title}`)
   }
   return result
 }
