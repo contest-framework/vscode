@@ -30,6 +30,6 @@ export async function send(text: string) {
   // write to pipe
   await fs.appendFile(pipePath, text, {
     flag: "a",
-    encoding: "utf8",
+    encoding: "utf8"
   })
 }

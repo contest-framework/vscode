@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("contest-vscode.stopTest", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.autoRepeat", switchAutoRepeat),
     vscode.commands.registerCommand("contest-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
-    vscode.workspace.onDidSaveTextDocument(documentSaved),
+    vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
 }
 
@@ -69,7 +69,7 @@ function wrapLogger(f: () => Promise<void>): () => Promise<void> {
 enum ActionOnSave {
   none,
   testCurrentFile,
-  repeatLastTest,
+  repeatLastTest
 }
 
 let actionOnSave: ActionOnSave = ActionOnSave.none
