@@ -4,6 +4,16 @@ import * as pipe from "./pipe"
 import { UserError } from "./user_error"
 import * as workspace from "./workspace"
 
+/** the action that should happen when the user saves a file */
+enum ActionOnSave {
+  none,
+  testCurrentFile,
+  repeatLastTest
+}
+
+let actionOnSave: ActionOnSave = ActionOnSave.none
+let lastTest: string | undefined = undefined
+
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.testAll", wrapLogger(testAll)),
@@ -19,25 +29,32 @@ export function activate(context: vscode.ExtensionContext) {
 
 async function testAll() {
   notification.display("testing all files")
-  await pipe.send(`{ "command": "testAll" }`)
+  lastTest = `{ "command": "testAll" }`
+  await pipe.send(lastTest)
 }
 
 async function testFile() {
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath}`)
-  await pipe.send(`{ "command": "testFile", "file": "${relPath}" }`)
+  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
+  await pipe.send(lastTest)
 }
 
 async function testFileLine() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line}`)
-  await pipe.send(`{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`)
+  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
 }
 
 async function repeatTest() {
+  if (!lastTest) {
+    notification.display("no test to repeat")
+    return
+  }
   notification.display("repeating the last test")
-  await pipe.send(`{ "command": "repeatTest" }`)
+  await pipe.send(lastTest)
 }
 
 async function stopTest() {
@@ -64,15 +81,6 @@ function wrapLogger(f: () => Promise<void>): () => Promise<void> {
   }
   return runAndCatch.bind(null, f)
 }
-
-/** the action that should happen when the user saves a file */
-enum ActionOnSave {
-  none,
-  testCurrentFile,
-  repeatLastTest
-}
-
-let actionOnSave: ActionOnSave = ActionOnSave.none
 
 function switchAutoRepeat() {
   if (actionOnSave === ActionOnSave.repeatLastTest) {

@@ -11,8 +11,8 @@ export function commands(action: tr.actions.Args) {
 }
 
 function exportedCommands() {
-  const __dirname = url.fileURLToPath(new URL(".", import.meta.url))
-  const configPath = path.join(__dirname, "..", "package.json")
+  const dirname = url.fileURLToPath(new URL(".", import.meta.url))
+  const configPath = path.join(dirname, "..", "package.json")
   const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
   const result: string[] = []
   const commandRE = /^contest-vscode\./
