@@ -1,4 +1,5 @@
 import * as assertNoDiff from "assert-no-diff"
+import * as fs from "fs"
 import * as tr from "text-runner"
 
 export function commands(action: tr.actions.Args) {
@@ -8,12 +9,14 @@ export function commands(action: tr.actions.Args) {
 }
 
 function exportedCommands() {
-  const config = require("../package.json")
+  const config = JSON.parse(fs.readFileSync("../package.json", "utf-8"))
   const result = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
-    result.push(`${command.command.replace(commandRE, "")}: ${command.title.replace(titleRE, "")}`)
+    const name = command.command.replace(commandRE, "")
+    const title = command.title.replace(titleRE, "")
+    result.push(`${name}: ${title}`)
   }
   return result
 }
