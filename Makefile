@@ -1,6 +1,3 @@
-doc:  # runs the documentation tests
-	${CURDIR}/node_modules/.bin/text-runner --format=dot
-
 fix:  # auto-corrects all formatting issues
 	${CURDIR}/node_modules/.bin/eslint . --fix --ext .ts
 	${CURDIR}/node_modules/.bin/prettier --write .

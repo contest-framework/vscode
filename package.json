@@ -18,6 +18,7 @@
   "main": "./out/extension.js",
   "scripts": {
     "compile": "tsc -p ./",
+    "doc": "text-runner",
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
