@@ -1,7 +1,7 @@
 import { promises as fs } from "fs"
 import * as path from "path"
+
 import * as notification from "./notification"
-import { UserError } from "./user_error"
 import * as workspace from "./workspace"
 
 const PIPE_FILENAME = ".contest.tmp"
@@ -31,7 +31,7 @@ export async function send(text: string) {
   }
   // write to pipe
   await fs.appendFile(pipePath, text, {
-    flag: "a",
-    encoding: "utf8"
+    encoding: "utf8",
+    flag: "a"
   })
 }
