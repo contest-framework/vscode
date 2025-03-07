@@ -19,6 +19,7 @@
   "scripts": {
     "compile": "tsc -p ./",
     "doc": "text-runner",
+    "fix": "eslint . --fix --ext .ts && prettier --write . && sort-package-json --quiet",
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
