@@ -4,17 +4,20 @@
 
 ### install
 
-This extension is [available](https://marketplace.visualstudio.com/items?itemName=kevgo.contest-vscode) in the Visual
-Studio marketplace. Please don't forget to also install the
-<img src="icons/300.png" width="30" height="25" valign="bottom"> [server](https://github.com/contest/server).
+This extension is
+[available](https://marketplace.visualstudio.com/items?itemName=kevgo.contest-vscode)
+in the Visual Studio marketplace. Please don't forget to also install the
+<img src="icons/300.png" width="30" height="25" valign="bottom">
+[server](https://github.com/contest/server).
 
 ### use
 
-1. Arrange a terminal and VSCode on your screen(s) so that you see both. You can use the terminal built into VSCode or
-   an external one here.
+1. Arrange a terminal and VSCode on your screen(s) so that you see both. You can
+   use the terminal built into VSCode or an external one here.
 2. Start the server by running `contest` in that terminal.
-3. Open Visual Studio's command palette by pressing (`Ctrl-Shift-P` or `Cmd-Shift-P`). Enter `contest` to trim the list
-   of available commands. Choose one of these commands:
+3. Open Visual Studio's command palette by pressing (`Ctrl-Shift-P` or
+   `Cmd-Shift-P`). Enter `contest` to trim the list of available commands.
+   Choose one of these commands:
 
 <table type="commands">
   <tr>

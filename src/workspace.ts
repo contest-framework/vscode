@@ -1,5 +1,5 @@
-import * as vscode from "vscode"
 import * as path from "path"
+import * as vscode from "vscode"
 import { UserError } from "./user_error"
 
 /** provides the path of the workspace */
