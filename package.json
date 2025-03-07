@@ -42,8 +42,16 @@
         "title": "Contest: Test this file"
       },
       {
+        "command": "contest-vscode.testFileOnSave",
+        "title": "Contest: Test this file on save"
+      },
+      {
         "command": "contest-vscode.testFileLine",
         "title": "Contest: Test the code at this line in this file"
+      },
+      {
+        "command": "contest-vscode.testFileLineOnSave",
+        "title": "Contest: Test the code at this line in this file on save"
       },
       {
         "command": "contest-vscode.repeatTest",
