@@ -1,8 +1,8 @@
 import * as vscode from "vscode"
-import * as pipe from "./pipe"
 import * as notification from "./notification"
-import * as workspace from "./workspace"
+import * as pipe from "./pipe"
 import { UserError } from "./user_error"
+import * as workspace from "./workspace"
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("contest-vscode.stopTest", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.autoRepeat", switchAutoRepeat),
     vscode.commands.registerCommand("contest-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
-    vscode.workspace.onDidSaveTextDocument(documentSaved),
+    vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
 }
 
@@ -47,7 +47,7 @@ async function stopTest() {
 
 /// provides a function that executes the given function and logs UserErrors
 function wrapLogger(f: () => Promise<void>): () => Promise<void> {
-  const runAndCatch = async function (f: () => Promise<void>) {
+  const runAndCatch = async function(f: () => Promise<void>) {
     try {
       await f()
     } catch (e) {
@@ -69,7 +69,7 @@ function wrapLogger(f: () => Promise<void>): () => Promise<void> {
 enum ActionOnSave {
   none,
   testCurrentFile,
-  repeatLastTest,
+  repeatLastTest
 }
 
 let actionOnSave: ActionOnSave = ActionOnSave.none
