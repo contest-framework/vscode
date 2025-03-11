@@ -68,6 +68,10 @@
       {
         "command": "contest-vscode.autoTestCurrentFile",
         "title": "Contest: Auto-test the current file on save"
+      },
+      {
+        "command": "contest-vscode.quit",
+        "title": "Contest: Quit the Contest server"
       }
     ],
     "jsonValidation": [
