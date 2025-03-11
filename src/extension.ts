@@ -26,6 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("contest-vscode.stopTest", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.autoRepeat", switchAutoRepeat),
     vscode.commands.registerCommand("contest-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
+    vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
 }
@@ -41,6 +42,11 @@ function documentSaved() {
       wrapLogger(testFile)()
       break
   }
+}
+
+async function quitServer() {
+  notification.display(`stopping the Contest server`)
+  await pipe.send(`{ "command": "quit" }`)
 }
 
 async function repeatTest() {

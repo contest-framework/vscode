@@ -56,6 +56,10 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td><b>autoTestCurrentFile</b></td>
     <td>Auto-test the current file on save</td>
   </tr>
+  <tr>
+    <td><b>quit</b></td>
+    <td>Stop the Contest server</td>
+  </tr>
 </table>
 
 ### develop
