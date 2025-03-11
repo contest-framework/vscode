@@ -71,7 +71,7 @@
       },
       {
         "command": "contest-vscode.quit",
-        "title": "Contest: Stop the Contest server"
+        "title": "Contest: Quit the Contest server"
       }
     ],
     "jsonValidation": [
