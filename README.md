@@ -1,4 +1,4 @@
-# <img src="icons/300.png" width="50" height="41" valign="bottom"> Contest client for VSCode
+# <img src="https://raw.githubusercontent.com/contest-framework/vscode/refs/heads/main/icons/300.png" width="50" height="41" valign="bottom"> Contest client for VSCode
 
 ![CI badge](https://github.com/contest-framework/vscode/actions/workflows/main.yml/badge.svg)
 
