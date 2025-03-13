@@ -1,5 +1,8 @@
-import * as tr from "text-runner"
 import * as assertNoDiff from "assert-no-diff"
+import * as fs from "fs"
+import * as path from "path"
+import * as tr from "text-runner"
+import * as url from "url"
 
 export function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)
@@ -8,18 +11,22 @@ export function commands(action: tr.actions.Args) {
 }
 
 function exportedCommands() {
-  const config = require("../package.json")
-  const result = []
+  const dirname = url.fileURLToPath(new URL(".", import.meta.url))
+  const configPath = path.join(dirname, "..", "package.json")
+  const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
+  const result: string[] = []
   const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
-    result.push(`${command.command.replace(commandRE, "")}: ${command.title.replace(titleRE, "")}`)
+    const name = command.command.replace(commandRE, "")
+    const title = command.title.replace(titleRE, "")
+    result.push(`${name}: ${title}`)
   }
   return result
 }
 
 function documentedCommands(nodes: tr.ast.NodeList) {
-  const result = []
+  const result: string[] = []
   for (const node of nodes.nodesOfTypes("tr_open")) {
     const row = nodes.nodesFor(node)
     const cells = row.nodesOfTypes("td_open")

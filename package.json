@@ -1,7 +1,7 @@
 {
   "name": "contest-vscode",
   "displayName": "Contest",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "The official Contest plugin for VSCode",
   "categories": [
     "Other"
@@ -18,9 +18,16 @@
   "main": "./out/extension.js",
   "scripts": {
     "compile": "tsc -p ./",
-    "lint": "eslint src --ext ts",
-    "pretest": "npm run compile && npm run lint",
-    "test": "node ./out/test/runTest.js",
+    "doc": "text-runner",
+    "fix": "eslint --fix && dprint fmt && sort-package-json --quiet",
+    "lint": "eslint && dprint check && sort-package-json --check --quiet",
+    "package": "vsce package",
+    "publish-major": "vsce publish major",
+    "publish-minor": "vsce publish minor",
+    "publish-patch": "vsce publish patch",
+    "setup": "npm install",
+    "test": "npm run compile && tsc && npm run fix && npm run lint && npm run doc",
+    "update": "npm exec -- npm-check-updates -u && npm install",
     "vscode:prepublish": "npm run compile",
     "watch": "tsc -watch -p ./"
   },
@@ -35,8 +42,16 @@
         "title": "Contest: Test this file"
       },
       {
+        "command": "contest-vscode.testFileOnSave",
+        "title": "Contest: Test this file on save"
+      },
+      {
         "command": "contest-vscode.testFileLine",
         "title": "Contest: Test the code at this line in this file"
+      },
+      {
+        "command": "contest-vscode.testFileLineOnSave",
+        "title": "Contest: Test the code at this line in this file on save"
       },
       {
         "command": "contest-vscode.repeatTest",
@@ -53,6 +68,10 @@
       {
         "command": "contest-vscode.autoTestCurrentFile",
         "title": "Contest: Auto-test the current file on save"
+      },
+      {
+        "command": "contest-vscode.quit",
+        "title": "Contest: Quit the Contest server"
       }
     ],
     "jsonValidation": [
@@ -64,21 +83,23 @@
   },
   "activationEvents": [],
   "devDependencies": {
-    "@types/node": "20.14.10",
-    "@types/vscode": "1.91.0",
-    "assert-no-diff": "^3.0.6",
-    "eslint": "8.57.0",
-    "prettier": "3.3.3",
-    "sort-package-json": "2.15.1",
-    "text-runner": "7.0.0",
-    "textrun-make": "0.2.1",
+    "@types/node": "22.13.10",
+    "@types/vscode": "1.98.0",
+    "assert-no-diff": "3.0.6",
+    "dprint": "0.49.0",
+    "eslint": "9.22.0",
+    "eslint-plugin-perfectionist": "4.10.1",
+    "npm-check-updates": "17.1.15",
+    "sort-package-json": "3.0.0",
+    "text-runner": "7.1.0",
+    "textrun-npm": "0.3.0",
     "ts-node": "10.9.2",
-    "typescript": "5.5.3",
-    "typescript-eslint": "7.16.1",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.1",
     "vsce": "2.15.0"
   },
   "engines": {
-    "vscode": "^1.91.0"
+    "vscode": "^1.98.0"
   },
   "icon": "icons/600.png"
 }

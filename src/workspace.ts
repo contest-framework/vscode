@@ -1,15 +1,7 @@
-import * as vscode from "vscode"
 import * as path from "path"
-import { UserError } from "./user_error"
+import * as vscode from "vscode"
 
-/** provides the path of the workspace */
-export function root(): string {
-  const wsFolders = vscode.workspace.workspaceFolders
-  if (!wsFolders || wsFolders?.length === 0) {
-    throw new UserError("No workspace folder")
-  }
-  return wsFolders[0].uri.fsPath
-}
+import { UserError } from "./user_error"
 
 /** provides the relative path to the currently open file */
 export function currentFile(): string {
@@ -21,6 +13,15 @@ export function currentLine(): number {
   // if (editor.selection.isEmpty) {
   return editor.selection.active.line
   // }
+}
+
+/** provides the path of the workspace */
+export function root(): string {
+  const wsFolders = vscode.workspace.workspaceFolders
+  if (!wsFolders || wsFolders?.length === 0) {
+    throw new UserError("No workspace folder")
+  }
+  return wsFolders[0].uri.fsPath
 }
 
 function currentEditor(): vscode.TextEditor {
