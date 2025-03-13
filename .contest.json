@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/contest-framework/server/refs/heads/main/documentation/schema.json",
   "actions": [
     {
-      "trigger": { "command": "testAll" },
+      "type": "test-all",
       "run": "npm run test"
     }
   ]
