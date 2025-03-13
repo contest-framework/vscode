@@ -13,7 +13,7 @@
             "properties": {
               "command": {
                 "type": "string",
-                "enum": ["testAll", "testFile", "testFileLine", "repeatTest", "stopTest"],
+                "enum": ["testAll", "test-file", "test-file-line", "repeat-test", "stop-test"],
                 "description": "command sent from the Contest client"
               },
               "file": {

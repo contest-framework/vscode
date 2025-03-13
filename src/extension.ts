@@ -17,15 +17,15 @@ let lastTest: string | undefined = undefined
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("contest-vscode.testAll", wrapLogger(testAll)),
-    vscode.commands.registerCommand("contest-vscode.testFile", wrapLogger(testFile)),
-    vscode.commands.registerCommand("contest-vscode.testFileOnSave", wrapLogger(testFileOnSave)),
-    vscode.commands.registerCommand("contest-vscode.testFileLine", wrapLogger(testFileLine)),
-    vscode.commands.registerCommand("contest-vscode.testFileLineOnSave", wrapLogger(testFileLineOnSave)),
-    vscode.commands.registerCommand("contest-vscode.repeatTest", wrapLogger(repeatTest)),
-    vscode.commands.registerCommand("contest-vscode.stopTest", wrapLogger(stopTest)),
-    vscode.commands.registerCommand("contest-vscode.autoRepeat", switchAutoRepeat),
-    vscode.commands.registerCommand("contest-vscode.autoTestCurrentFile", switchAutoTestCurrentFile),
+    vscode.commands.registerCommand("contest-vscode.test-all", wrapLogger(testAll)),
+    vscode.commands.registerCommand("contest-vscode.test-file", wrapLogger(testFile)),
+    vscode.commands.registerCommand("contest-vscode.test-file-on-save", wrapLogger(testFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.test-file-line", wrapLogger(testFileLine)),
+    vscode.commands.registerCommand("contest-vscode.test-file-line-on-save", wrapLogger(testFileLineOnSave)),
+    vscode.commands.registerCommand("contest-vscode.repeat-test", wrapLogger(repeatTest)),
+    vscode.commands.registerCommand("contest-vscode.stop-test", wrapLogger(stopTest)),
+    vscode.commands.registerCommand("contest-vscode.auto-repeat", switchAutoRepeat),
+    vscode.commands.registerCommand("contest-vscode.auto-test-current-file", switchAutoTestCurrentFile),
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
@@ -85,14 +85,14 @@ function switchAutoTestCurrentFile() {
 
 async function testAll() {
   notification.display("testing all files")
-  lastTest = `{ "command": "testAll" }`
+  lastTest = `{ "command": "test-all" }`
   await pipe.send(lastTest)
 }
 
 async function testFile() {
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath}`)
-  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
   await pipe.send(lastTest)
 }
 
@@ -100,7 +100,7 @@ async function testFileLine() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line}`)
-  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
 
@@ -109,7 +109,7 @@ async function testFileLineOnSave() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line} on save`)
-  lastTest = `{ "command": "testFileLine", "file": "${relPath}", "line": ${line} }`
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
 
@@ -117,7 +117,7 @@ async function testFileOnSave() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath} on save`)
-  lastTest = `{ "command": "testFile", "file": "${relPath}" }`
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
   await pipe.send(lastTest)
 }
 
