@@ -21,39 +21,39 @@ in the Visual Studio marketplace. Please don't forget to also install the
 
 <table type="commands">
   <tr>
-    <td><b>testAll</b></td>
+    <td><b>test-all</b></td>
     <td>Test everything</td>
   </tr>
   <tr>
-    <td><b>testFile</b></td>
+    <td><b>test-file</b></td>
     <td>Test this file</td>
   </tr>
   <tr>
-    <td><b>testFileOnSave</b></td>
+    <td><b>test-file-on-save</b></td>
     <td>Test this file on save</td>
   </tr>
   <tr>
-    <td><b>testFileLine</b></td>
+    <td><b>test-file-line</b></td>
     <td>Test the code at this line in this file</td>
   </tr>
   <tr>
-    <td><b>testFileLineOnSave</b></td>
+    <td><b>test-file-line-on-save</b></td>
     <td>Test the code at this line in this file on save</td>
   </tr>
   <tr>
-    <td><b>repeatTest</b></td>
+    <td><b>repeat-test</b></td>
     <td>Repeat the last test</td>
   </tr>
   <tr>
-    <td><b>stopTest</b></td>
+    <td><b>stop-test</b></td>
     <td>Stop the current test</td>
   </tr>
   <tr>
-    <td><b>autoRepeat</b></td>
+    <td><b>auto-repeat</b></td>
     <td>Start/Stop auto-repeat on file save</td>
   </tr>
   <tr>
-    <td><b>autoTestCurrentFile</b></td>
+    <td><b>auto-test-current-file</b></td>
     <td>Auto-test the current file on save</td>
   </tr>
   <tr>

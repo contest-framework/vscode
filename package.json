@@ -34,39 +34,39 @@
   "contributes": {
     "commands": [
       {
-        "command": "contest-vscode.testAll",
+        "command": "contest-vscode.test-all",
         "title": "Contest: Test everything"
       },
       {
-        "command": "contest-vscode.testFile",
+        "command": "contest-vscode.test-file",
         "title": "Contest: Test this file"
       },
       {
-        "command": "contest-vscode.testFileOnSave",
+        "command": "contest-vscode.test-file-on-save",
         "title": "Contest: Test this file on save"
       },
       {
-        "command": "contest-vscode.testFileLine",
+        "command": "contest-vscode.test-file-line",
         "title": "Contest: Test the code at this line in this file"
       },
       {
-        "command": "contest-vscode.testFileLineOnSave",
+        "command": "contest-vscode.test-file-line-on-save",
         "title": "Contest: Test the code at this line in this file on save"
       },
       {
-        "command": "contest-vscode.repeatTest",
+        "command": "contest-vscode.repeat-test",
         "title": "Contest: Repeat the last test"
       },
       {
-        "command": "contest-vscode.stopTest",
+        "command": "contest-vscode.stop-test",
         "title": "Contest: Stop the current test"
       },
       {
-        "command": "contest-vscode.autoRepeat",
+        "command": "contest-vscode.auto-repeat",
         "title": "Contest: Start/Stop auto-repeat on file save"
       },
       {
-        "command": "contest-vscode.autoTestCurrentFile",
+        "command": "contest-vscode.auto-test-current-file",
         "title": "Contest: Auto-test the current file on save"
       },
       {
