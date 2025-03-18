@@ -62,7 +62,7 @@
 
       {
         "command": "contest-vscode.current-file-auto",
-        "title": "Contest: Auto-test the current file on save"
+        "title": "Contest: Auto-test the active file on save"
       },
 
       {
