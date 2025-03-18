@@ -1,7 +1,7 @@
 {
   "name": "contest-vscode",
   "displayName": "Contest",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "The official Contest plugin for VSCode",
   "categories": [
     "Other"
