@@ -34,40 +34,44 @@
   "contributes": {
     "commands": [
       {
-        "command": "contest-vscode.test-all",
+        "command": "contest-vscode.all-once",
         "title": "Contest: Test everything"
       },
       {
-        "command": "contest-vscode.test-file",
+        "command": "contest-vscode.all-auto",
+        "title": "Contest: Test everything on save"
+      },
+      {
+        "command": "contest-vscode.this-file-once",
         "title": "Contest: Test this file"
       },
       {
-        "command": "contest-vscode.test-file-on-save",
+        "command": "contest-vscode.this-file-auto",
         "title": "Contest: Test this file on save"
       },
       {
-        "command": "contest-vscode.test-file-line",
-        "title": "Contest: Test the code at this line in this file"
+        "command": "contest-vscode.this-line-once",
+        "title": "Contest: Test this line in this file"
       },
       {
-        "command": "contest-vscode.test-file-line-on-save",
-        "title": "Contest: Test the code at this line in this file on save"
+        "command": "contest-vscode.this-line-auto",
+        "title": "Contest: Test this line in this file on save"
       },
       {
-        "command": "contest-vscode.repeat-test",
+        "command": "contest-vscode.current-file-auto",
+        "title": "Contest: Test the active file on save"
+      },
+      {
+        "command": "contest-vscode.repeat-once",
         "title": "Contest: Repeat the last test"
       },
       {
-        "command": "contest-vscode.stop-test",
+        "command": "contest-vscode.repeat-auto",
+        "title": "Contest: Start/Stop repeat the last test on save"
+      },
+      {
+        "command": "contest-vscode.stop",
         "title": "Contest: Stop the current test"
-      },
-      {
-        "command": "contest-vscode.auto-repeat",
-        "title": "Contest: Start/Stop auto-repeat on file save"
-      },
-      {
-        "command": "contest-vscode.auto-test-current-file",
-        "title": "Contest: Auto-test the current file on save"
       },
       {
         "command": "contest-vscode.quit",

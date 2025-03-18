@@ -21,40 +21,44 @@ in the Visual Studio marketplace. Please don't forget to also install the
 
 <table type="commands">
   <tr>
-    <td><b>test-all</b></td>
+    <td><b>all-once</b></td>
     <td>Test everything</td>
   </tr>
   <tr>
-    <td><b>test-file</b></td>
+    <td><b>all-auto</b></td>
+    <td>Test everything on save</td>
+  </tr>
+  <tr>
+    <td><b>this-file-once</b></td>
     <td>Test this file</td>
   </tr>
   <tr>
-    <td><b>test-file-on-save</b></td>
+    <td><b>this-file-auto</b></td>
     <td>Test this file on save</td>
   </tr>
   <tr>
-    <td><b>test-file-line</b></td>
-    <td>Test the code at this line in this file</td>
+    <td><b>this-line-once</b></td>
+    <td>Test this line in this file</td>
   </tr>
   <tr>
-    <td><b>test-file-line-on-save</b></td>
-    <td>Test the code at this line in this file on save</td>
+    <td><b>this-line-auto</b></td>
+    <td>Test this line in this file on save</td>
   </tr>
   <tr>
-    <td><b>repeat-test</b></td>
+    <td><b>current-file-auto</b></td>
+    <td>Test the active file on save</td>
+  </tr>
+  <tr>
+    <td><b>repeat-once</b></td>
     <td>Repeat the last test</td>
   </tr>
   <tr>
-    <td><b>stop-test</b></td>
+    <td><b>repeat-auto</b></td>
+    <td>Start/Stop repeat the last test on save</td>
+  </tr>
+  <tr>
+    <td><b>stop</b></td>
     <td>Stop the current test</td>
-  </tr>
-  <tr>
-    <td><b>auto-repeat</b></td>
-    <td>Start/Stop auto-repeat on file save</td>
-  </tr>
-  <tr>
-    <td><b>auto-test-current-file</b></td>
-    <td>Auto-test the current file on save</td>
   </tr>
   <tr>
     <td><b>quit</b></td>
