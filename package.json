@@ -18,7 +18,7 @@
   "main": "./out/extension.js",
   "scripts": {
     "compile": "tsc -p ./",
-    "doc": "text-runner",
+    "doc": "text-runner --format=dot",
     "fix": "eslint --fix && dprint fmt && sort-package-json --quiet",
     "lint": "eslint && dprint check && sort-package-json --check --quiet",
     "package": "vsce package",
