@@ -100,7 +100,7 @@ async function repeatOnce() {
 
 async function stopTest() {
   notification.display("stopping the current test")
-  await pipe.send(`{ "command": "stopTest" }`)
+  await pipe.send(`{ "command": "stop-test" }`)
 }
 
 async function thisFileAuto() {
