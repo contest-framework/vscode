@@ -32,15 +32,15 @@ export function activate(context: vscode.ExtensionContext) {
   )
 }
 
-async function allOnce() {
-  notification.display("testing all files")
+async function allAuto() {
+  notification.display("running all tests on save")
+  actionOnSave = ActionOnSave.repeatLastTest
   lastTest = `{ "command": "test-all" }`
   await pipe.send(lastTest)
 }
 
-async function allAuto() {
-  notification.display("running all tests on save")
-  actionOnSave = ActionOnSave.repeatLastTest
+async function allOnce() {
+  notification.display("testing all files")
   lastTest = `{ "command": "test-all" }`
   await pipe.send(lastTest)
 }
@@ -61,13 +61,17 @@ async function currentFileAuto() {
   }
 }
 
-async function repeatOnce() {
-  if (!lastTest) {
-    notification.display("no test to repeat")
-    return
+function documentSaved() {
+  switch (actionOnSave) {
+    case ActionOnSave.none:
+      break
+    case ActionOnSave.repeatLastTest:
+      wrapLogger(repeatOnce)()
+      break
+    case ActionOnSave.testCurrentFile:
+      wrapLogger(thisFileOnce)()
+      break
   }
-  notification.display("repeating the last test")
-  await pipe.send(lastTest)
 }
 
 async function quitServer() {
@@ -85,23 +89,32 @@ function repeatAuto() {
   }
 }
 
+async function repeatOnce() {
+  if (!lastTest) {
+    notification.display("no test to repeat")
+    return
+  }
+  notification.display("repeating the last test")
+  await pipe.send(lastTest)
+}
+
 async function stopTest() {
   notification.display("stopping the current test")
   await pipe.send(`{ "command": "stopTest" }`)
+}
+
+async function thisFileAuto() {
+  actionOnSave = ActionOnSave.repeatLastTest
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath} on save`)
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  await pipe.send(lastTest)
 }
 
 async function thisFileOnce() {
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath}`)
   lastTest = `{ "command": "test-file", "file": "${relPath}" }`
-  await pipe.send(lastTest)
-}
-
-async function thisLineOnce() {
-  const relPath = workspace.currentFile()
-  const line = workspace.currentLine() + 1
-  notification.display(`testing function at ${relPath}:${line}`)
-  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
 
@@ -114,25 +127,12 @@ async function thisLineAuto() {
   await pipe.send(lastTest)
 }
 
-async function thisFileAuto() {
-  actionOnSave = ActionOnSave.repeatLastTest
+async function thisLineOnce() {
   const relPath = workspace.currentFile()
-  notification.display(`testing file ${relPath} on save`)
-  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line}`)
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
-}
-
-function documentSaved() {
-  switch (actionOnSave) {
-    case ActionOnSave.none:
-      break
-    case ActionOnSave.repeatLastTest:
-      wrapLogger(repeatOnce)()
-      break
-    case ActionOnSave.testCurrentFile:
-      wrapLogger(thisFileOnce)()
-      break
-  }
 }
 
 /// provides a function that executes the given function and logs UserErrors
