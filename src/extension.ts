@@ -49,10 +49,10 @@ async function currentFileAuto() {
   if (actionOnSave === ActionOnSave.testCurrentFile) {
     actionOnSave = ActionOnSave.none
     notification.display("auto-test current file OFF")
-    // TODO: start the stest
   } else {
     actionOnSave = ActionOnSave.testCurrentFile
     notification.display("auto-test current file ON")
+    // TODO: start the test
   }
 }
 
