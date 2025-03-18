@@ -6,7 +6,7 @@ import { UserError } from "./user_error"
 import * as workspace from "./workspace"
 
 /** the action that should happen when the user saves a file */
-enum ActionOnSave {
+const enum ActionOnSave {
   none,
   testCurrentFile,
   repeatLastTest
