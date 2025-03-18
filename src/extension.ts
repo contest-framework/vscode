@@ -52,7 +52,12 @@ async function currentFileAuto() {
   } else {
     actionOnSave = ActionOnSave.testCurrentFile
     notification.display("auto-test current file ON")
-    // TODO: start the test
+    try {
+      const relPath = workspace.currentFile()
+      await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
+    } catch {
+      // no problem if this command is run without a file open
+    }
   }
 }
 
