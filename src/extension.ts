@@ -17,39 +17,46 @@ let lastTest: string | undefined = undefined
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("contest-vscode.test-all", wrapLogger(testAll)),
-    vscode.commands.registerCommand("contest-vscode.test-file", wrapLogger(testFile)),
-    vscode.commands.registerCommand("contest-vscode.test-file-on-save", wrapLogger(testFileOnSave)),
-    vscode.commands.registerCommand("contest-vscode.test-file-line", wrapLogger(testFileLine)),
-    vscode.commands.registerCommand("contest-vscode.test-file-line-on-save", wrapLogger(testFileLineOnSave)),
-    vscode.commands.registerCommand("contest-vscode.repeat-test", wrapLogger(repeatTest)),
-    vscode.commands.registerCommand("contest-vscode.stop-test", wrapLogger(stopTest)),
-    vscode.commands.registerCommand("contest-vscode.auto-repeat", switchAutoRepeat),
-    vscode.commands.registerCommand("contest-vscode.auto-test-current-file", switchAutoTestCurrentFile),
+    vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
+    vscode.commands.registerCommand("contest-vscode.all-auto", wrapLogger(allAuto)),
+    vscode.commands.registerCommand("contest-vscode.current-file-auto", wrapLogger(currentFileAuto)),
+    vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
+    vscode.commands.registerCommand("contest-vscode.this-file-auto", wrapLogger(thisFileAuto)),
+    vscode.commands.registerCommand("contest-vscode.this-line-once", wrapLogger(thisLineOnce)),
+    vscode.commands.registerCommand("contest-vscode.this-line-auto", wrapLogger(thisLineAuto)),
+    vscode.commands.registerCommand("contest-vscode.repeat-once", wrapLogger(repeatOnce)),
+    vscode.commands.registerCommand("contest-vscode.repeat-auto", repeatAuto),
+    vscode.commands.registerCommand("contest-vscode.stop", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
 }
 
-function documentSaved() {
-  switch (actionOnSave) {
-    case ActionOnSave.none:
-      break
-    case ActionOnSave.repeatLastTest:
-      wrapLogger(repeatTest)()
-      break
-    case ActionOnSave.testCurrentFile:
-      wrapLogger(testFile)()
-      break
+async function allOnce() {
+  notification.display("testing all files")
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
+async function allAuto() {
+  notification.display("running all tests on save")
+  actionOnSave = ActionOnSave.repeatLastTest
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
+async function currentFileAuto() {
+  if (actionOnSave === ActionOnSave.testCurrentFile) {
+    actionOnSave = ActionOnSave.none
+    notification.display("auto-test current file OFF")
+    // TODO: start the stest
+  } else {
+    actionOnSave = ActionOnSave.testCurrentFile
+    notification.display("auto-test current file ON")
   }
 }
 
-async function quitServer() {
-  notification.display(`stopping the Contest server`)
-  await pipe.send(`{ "command": "quit" }`)
-}
-
-async function repeatTest() {
+async function repeatOnce() {
   if (!lastTest) {
     notification.display("no test to repeat")
     return
@@ -58,12 +65,12 @@ async function repeatTest() {
   await pipe.send(lastTest)
 }
 
-async function stopTest() {
-  notification.display("stopping the current test")
-  await pipe.send(`{ "command": "stopTest" }`)
+async function quitServer() {
+  notification.display(`stopping the Contest server`)
+  await pipe.send(`{ "command": "quit" }`)
 }
 
-function switchAutoRepeat() {
+function repeatAuto() {
   if (actionOnSave === ActionOnSave.repeatLastTest) {
     actionOnSave = ActionOnSave.none
     notification.display("auto-repeat last test OFF")
@@ -73,30 +80,19 @@ function switchAutoRepeat() {
   }
 }
 
-function switchAutoTestCurrentFile() {
-  if (actionOnSave === ActionOnSave.testCurrentFile) {
-    actionOnSave = ActionOnSave.none
-    notification.display("auto-test current file OFF")
-  } else {
-    actionOnSave = ActionOnSave.testCurrentFile
-    notification.display("auto-test current file ON")
-  }
+async function stopTest() {
+  notification.display("stopping the current test")
+  await pipe.send(`{ "command": "stopTest" }`)
 }
 
-async function testAll() {
-  notification.display("testing all files")
-  lastTest = `{ "command": "test-all" }`
-  await pipe.send(lastTest)
-}
-
-async function testFile() {
+async function thisFileOnce() {
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath}`)
   lastTest = `{ "command": "test-file", "file": "${relPath}" }`
   await pipe.send(lastTest)
 }
 
-async function testFileLine() {
+async function thisLineOnce() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line}`)
@@ -104,7 +100,7 @@ async function testFileLine() {
   await pipe.send(lastTest)
 }
 
-async function testFileLineOnSave() {
+async function thisLineAuto() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
@@ -113,12 +109,25 @@ async function testFileLineOnSave() {
   await pipe.send(lastTest)
 }
 
-async function testFileOnSave() {
+async function thisFileAuto() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath} on save`)
   lastTest = `{ "command": "test-file", "file": "${relPath}" }`
   await pipe.send(lastTest)
+}
+
+function documentSaved() {
+  switch (actionOnSave) {
+    case ActionOnSave.none:
+      break
+    case ActionOnSave.repeatLastTest:
+      wrapLogger(repeatOnce)()
+      break
+    case ActionOnSave.testCurrentFile:
+      wrapLogger(thisFileOnce)()
+      break
+  }
 }
 
 /// provides a function that executes the given function and logs UserErrors
