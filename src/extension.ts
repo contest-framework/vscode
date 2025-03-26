@@ -134,6 +134,16 @@ function repeatOnSave() {
   }
 }
 
+function repeatOnDoubleSave() {
+  if (actionOnSave === ActionOnSave.repeatLastTestOnDouble) {
+    actionOnSave = ActionOnSave.none
+    notification.display("auto-repeat last test on double-save OFF")
+  } else {
+    actionOnSave = ActionOnSave.repeatLastTestOnDouble
+    notification.display("auto-repeat last test on double-save ON")
+  }
+}
+
 async function repeatOnce() {
   if (!lastTest) {
     notification.display("no test to repeat")
@@ -159,7 +169,7 @@ async function thisFileOnSave() {
 async function thisFileOnDoubleSave() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
-  notification.display(`testing file ${relPath} on save`)
+  notification.display(`testing file ${relPath} on double-save`)
   lastTest = `{ "command": "test-file", "file": "${relPath}" }`
   await pipe.send(lastTest)
 }
