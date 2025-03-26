@@ -18,7 +18,7 @@ let lastTest: string | undefined = undefined
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
-    vscode.commands.registerCommand("contest-vscode.all-auto", wrapLogger(allAuto)),
+    vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allAuto)),
     vscode.commands.registerCommand("contest-vscode.current-file-on-save", wrapLogger(currentFileAuto)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileAuto)),
