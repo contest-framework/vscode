@@ -19,13 +19,13 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-auto", wrapLogger(allAuto)),
-    vscode.commands.registerCommand("contest-vscode.current-file-auto", wrapLogger(currentFileAuto)),
+    vscode.commands.registerCommand("contest-vscode.current-file-on-save", wrapLogger(currentFileAuto)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileAuto)),
     vscode.commands.registerCommand("contest-vscode.this-line-once", wrapLogger(thisLineOnce)),
     vscode.commands.registerCommand("contest-vscode.this-line-on-save", wrapLogger(thisLineAuto)),
     vscode.commands.registerCommand("contest-vscode.repeat-once", wrapLogger(repeatOnce)),
-    vscode.commands.registerCommand("contest-vscode.repeat-auto", repeatAuto),
+    vscode.commands.registerCommand("contest-vscode.repeat-on-save", repeatAuto),
     vscode.commands.registerCommand("contest-vscode.stop", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
