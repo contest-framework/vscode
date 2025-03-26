@@ -61,7 +61,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test the active file on save</td>
   </tr>
   <tr>
-    <td><b>current-file-on-double-save</b></td>
+    <td><b>active-file-on-double-save</b></td>
     <td>Test the active file on double-save</td>
   </tr>
   <tr>

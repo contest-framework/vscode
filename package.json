@@ -74,7 +74,7 @@
         "title": "Contest: Test the active file on save"
       },
       {
-        "command": "contest-vscode.current-file-on-double-save",
+        "command": "contest-vscode.active-file-on-double-save",
         "title": "Contest: Test the active file on double-save"
       },
       {
