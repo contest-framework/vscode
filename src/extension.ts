@@ -78,17 +78,17 @@ async function currentFileOnSave() {
 }
 
 async function currentFileOnDoubleSave() {
-  if (actionOnSave === ActionOnSave.testCurrentFile) {
+  if (actionOnSave === ActionOnSave.testCurrentFileOnDouble) {
     actionOnSave = ActionOnSave.none
-    notification.display("auto-test current file OFF")
+    notification.display("auto-test current file on double-save OFF")
   } else {
-    actionOnSave = ActionOnSave.testCurrentFile
-    notification.display("auto-test current file ON")
+    actionOnSave = ActionOnSave.testCurrentFileOnDouble
+    notification.display("auto-test current file on double-save ON")
     try {
       const relPath = workspace.currentFile()
       await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
     } catch {
-      // no problem if this command is run without a file open
+      // no problem if this command is run without a current file
     }
   }
 }
@@ -149,6 +149,14 @@ async function stopTest() {
 }
 
 async function thisFileOnSave() {
+  actionOnSave = ActionOnSave.repeatLastTest
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath} on save`)
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  await pipe.send(lastTest)
+}
+
+async function thisFileOnDoubleSave() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
   notification.display(`testing file ${relPath} on save`)
