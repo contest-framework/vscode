@@ -25,7 +25,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test everything</td>
   </tr>
   <tr>
-    <td><b>all-auto</b></td>
+    <td><b>all-on-save</b></td>
     <td>Test everything on save</td>
   </tr>
   <tr>
@@ -33,7 +33,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test this file</td>
   </tr>
   <tr>
-    <td><b>this-file-auto</b></td>
+    <td><b>this-file-on-save</b></td>
     <td>Test this file on save</td>
   </tr>
   <tr>
@@ -41,11 +41,11 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test this line in this file</td>
   </tr>
   <tr>
-    <td><b>this-line-auto</b></td>
+    <td><b>this-line-on-save</b></td>
     <td>Test this line in this file on save</td>
   </tr>
   <tr>
-    <td><b>current-file-auto</b></td>
+    <td><b>current-file-on-save</b></td>
     <td>Test the active file on save</td>
   </tr>
   <tr>
@@ -53,7 +53,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Repeat the last test</td>
   </tr>
   <tr>
-    <td><b>repeat-auto</b></td>
+    <td><b>repeat-on-save</b></td>
     <td>Start/Stop repeat the last test on save</td>
   </tr>
   <tr>
