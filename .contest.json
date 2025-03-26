@@ -4,6 +4,23 @@
     {
       "type": "test-all",
       "run": "npm run test"
+    },
+    {
+      "type": "test-file",
+      "files": "*.md",
+      "run": "npm exec text-runner {{ file }}"
     }
-  ]
+  ],
+  "options": {
+    "beforeRun": {
+      "clearScreen": true,
+      "newlines": 3
+    },
+    "afterRun": {
+      "newlines": 1,
+      "indicatorLines": 3,
+      "indicatorBackground": true,
+      "printResult": false
+    }
+  }
 }
