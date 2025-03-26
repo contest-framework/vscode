@@ -34,6 +34,10 @@
   "contributes": {
     "commands": [
       {
+        "command": "contest-vscode.active-file-on-save",
+        "title": "Contest: Test the active file on save"
+      },
+      {
         "command": "contest-vscode.all-once",
         "title": "Contest: Test everything"
       },
@@ -64,18 +68,6 @@
       {
         "command": "contest-vscode.this-line-on-save",
         "title": "Contest: Test this line in this file on save"
-      },
-      {
-        "command": "contest-vscode.this-line-on-double-save",
-        "title": "Contest: Test this line in this file on double-save"
-      },
-      {
-        "command": "contest-vscode.active-file-on-save",
-        "title": "Contest: Test the active file on save"
-      },
-      {
-        "command": "contest-vscode.active-file-on-double-save",
-        "title": "Contest: Test the active file on double-save"
       },
       {
         "command": "contest-vscode.repeat-once",

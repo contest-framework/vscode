@@ -21,6 +21,10 @@ in the Visual Studio marketplace. Please don't forget to also install the
 
 <table type="commands">
   <tr>
+    <td><b>active-file-on-save</b></td>
+    <td>Test the active file on save</td>
+  </tr>
+  <tr>
     <td><b>all-once</b></td>
     <td>Test everything</td>
   </tr>
@@ -51,18 +55,6 @@ in the Visual Studio marketplace. Please don't forget to also install the
   <tr>
     <td><b>this-line-on-save</b></td>
     <td>Test this line in this file on save</td>
-  </tr>
-  <tr>
-    <td><b>this-line-on-double-save</b></td>
-    <td>Test this line in this file on double-save</td>
-  </tr>
-  <tr>
-    <td><b>active-file-on-save</b></td>
-    <td>Test the active file on save</td>
-  </tr>
-  <tr>
-    <td><b>active-file-on-double-save</b></td>
-    <td>Test the active file on double-save</td>
   </tr>
   <tr>
     <td><b>repeat-once</b></td>

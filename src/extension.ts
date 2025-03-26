@@ -21,11 +21,9 @@ const DOUBLE_THRESHOLD = 500 // how fast two saves need to follow each other to 
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
+    vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allOnSave)),
-    vscode.commands.registerCommand("contest-vscode.all-on-double-save", wrapLogger(allOnDoubleSave)),
-    vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
-    vscode.commands.registerCommand("contest-vscode.active-file-on-double-save", wrapLogger(activeFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileOnSave)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-double-save", wrapLogger(thisFileOnDoubleSave)),
