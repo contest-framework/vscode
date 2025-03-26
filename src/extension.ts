@@ -62,12 +62,6 @@ async function allOnce() {
 }
 
 async function currentFileOnSave() {
-  let currentTestTime = Date.now()
-  let duration = currentTestTime - lastTestTime
-  lastTestTime = currentTestTime
-  if (duration > DOUBLE_SAVE_THRESHOLD) {
-    return
-  }
   if (actionOnSave === ActionOnSave.testCurrentFile) {
     actionOnSave = ActionOnSave.none
     notification.display("auto-test current file OFF")
@@ -100,14 +94,27 @@ async function currentFileOnDoubleSave() {
 }
 
 function documentSaved() {
+  let currentTestTime = Date.now()
+  let duration = currentTestTime - lastTestTime
+  lastTestTime = currentTestTime
   switch (actionOnSave) {
     case ActionOnSave.none:
       break
     case ActionOnSave.repeatLastTest:
       wrapLogger(repeatOnce)()
       break
+    case ActionOnSave.repeatLastTestOnDouble:
+      if (duration < DOUBLE_SAVE_THRESHOLD) {
+        wrapLogger(repeatOnce)()
+      }
+      break
     case ActionOnSave.testCurrentFile:
       wrapLogger(thisFileOnce)()
+      break
+    case ActionOnSave.testCurrentFileOnDouble:
+      if (duration < DOUBLE_SAVE_THRESHOLD) {
+        wrapLogger(thisFileOnce)()
+      }
       break
   }
 }
