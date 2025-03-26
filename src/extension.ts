@@ -1,5 +1,4 @@
 import * as vscode from "vscode"
-
 import * as notification from "./notification"
 import * as pipe from "./pipe"
 import { UserError } from "./user_error"
@@ -97,6 +96,7 @@ function documentSaved() {
   const currentTestTime = Date.now()
   const msSinceLastTest = currentTestTime - lastTestTime
   const isDoubleSave = msSinceLastTest < DOUBLE_THRESHOLD
+  lastTestTime = currentTestTime
   switch (actionOnSave) {
     case ActionOnSave.none:
       break
