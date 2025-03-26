@@ -58,7 +58,7 @@
         "title": "Contest: Test this line in this file on save"
       },
       {
-        "command": "contest-vscode.current-file-on-save",
+        "command": "contest-vscode.active-file-on-save",
         "title": "Contest: Test the active file on save"
       },
       {
