@@ -8,7 +8,7 @@ import * as workspace from "./workspace"
 /** the action that should happen when the user saves a file */
 const enum ActionOnSave {
   none,
-  testCurrentFile,
+  testActiveFile,
   repeatLastTest
 }
 
@@ -32,26 +32,13 @@ export function activate(context: vscode.ExtensionContext) {
   )
 }
 
-async function allOnSave() {
-  notification.display("running all tests on save")
-  actionOnSave = ActionOnSave.repeatLastTest
-  lastTest = `{ "command": "test-all" }`
-  await pipe.send(lastTest)
-}
-
-async function allOnce() {
-  notification.display("testing all files")
-  lastTest = `{ "command": "test-all" }`
-  await pipe.send(lastTest)
-}
-
 async function activeFileOnSave() {
-  if (actionOnSave === ActionOnSave.testCurrentFile) {
+  if (actionOnSave === ActionOnSave.testActiveFile) {
     actionOnSave = ActionOnSave.none
-    notification.display("test current file on save OFF")
+    notification.display("test active file on save OFF")
   } else {
-    actionOnSave = ActionOnSave.testCurrentFile
-    notification.display("test current file on save ON")
+    actionOnSave = ActionOnSave.testActiveFile
+    notification.display("test active file on save ON")
     try {
       const relPath = workspace.currentFile()
       await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
@@ -61,6 +48,19 @@ async function activeFileOnSave() {
   }
 }
 
+async function allOnce() {
+  notification.display("testing all files")
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
+async function allOnSave() {
+  notification.display("running all tests on save")
+  actionOnSave = ActionOnSave.repeatLastTest
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
 function documentSaved() {
   switch (actionOnSave) {
     case ActionOnSave.none:
@@ -68,7 +68,7 @@ function documentSaved() {
     case ActionOnSave.repeatLastTest:
       wrapLogger(repeatOnce)()
       break
-    case ActionOnSave.testCurrentFile:
+    case ActionOnSave.testActiveFile:
       wrapLogger(thisFileOnce)()
       break
   }
