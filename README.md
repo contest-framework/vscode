@@ -38,7 +38,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
   </tr>
   <tr>
     <td><b>Test everything on double-save</b></td>
-    <td>Runs all tests every time you save twice within <a>500</a>ms</td>
+    <td>Runs all tests every time you save twice within <a>500</a> milliseconds</td>
   </tr>
   <tr>
     <td><b>Test this file</b></td>
@@ -50,39 +50,39 @@ in the Visual Studio marketplace. Please don't forget to also install the
   </tr>
   <tr>
     <td><b>Test this file on double-save</b></td>
-    <td>Tests the file that is active when you run this command, each time you save any file twice within <a>500</a>ms, no matter which file is active when you save</td>
+    <td>Tests the file that is active when you run this command, each time you save any file twice within <a>500</a> milliseconds no matter which file is active when you save</td>
   </tr>
   <tr>
     <td><b>Test this line in this file</b></td>
-    <td></td>
+    <td>Runs the test for the given line in the currently active file</td>
   </tr>
   <tr>
     <td><b>Test this line in this file on save</b></td>
-    <td></td>
+    <td>Runs the test for the given line in the currently active file, each time you save any file</td>
   </tr>
   <tr>
     <td><b>Test this line in this file on double-save</b></td>
-    <td></td>
+    <td>Runs the test for the given line in the currently active file, each time you save any file twice within 500 milliseconds</td>
   </tr>
   <tr>
     <td><b>Repeat the last test</b></td>
-    <td></td>
+    <td>re-runs the last test that Contest ran, once</td>
   </tr>
   <tr>
     <td><b>Start/Stop repeat the last test on save</b></td>
-    <td></td>
+    <td>re-runs the last test that Contest ran, each time you save any file</td>
   </tr>
   <tr>
     <td><b>Start/Stop repeat the last test on double-save</b></td>
-    <td></td>
+    <td>re-runs the last test that Contest ran, each time you save any file twice within 500 ms</td>
   </tr>
   <tr>
     <td><b>Stop the current test</b></td>
-    <td></td>
+    <td>If a test is currently running or hanging, stops it</td>
   </tr>
   <tr>
     <td><b>Quit the Contest server</b></td>
-    <td></td>
+    <td>If the Contest server or the terminal/shell that the server runs in hangs, sends a signal to the server to quit</td>
   </tr>
 </table>
 
