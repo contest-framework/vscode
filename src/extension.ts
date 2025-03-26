@@ -17,7 +17,7 @@ const enum ActionOnSave {
 let actionOnSave: ActionOnSave = ActionOnSave.none
 let lastTest: string | undefined = undefined
 let lastTestTime = 0
-const DOUBLE_THRESHOLD = 500 // how fast two saves need to follow each other to be considered a double-save, in ms
+const DOUBLE_SAVE_THRESHOLD_MS = 500
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -96,7 +96,7 @@ async function allOnSave() {
 function documentSaved() {
   const currentTestTime = Date.now()
   const msSinceLastTest = currentTestTime - lastTestTime
-  const isDoubleSave = msSinceLastTest < DOUBLE_THRESHOLD
+  const isDoubleSave = msSinceLastTest < DOUBLE_SAVE_THRESHOLD_MS
   lastTestTime = currentTestTime
   switch (actionOnSave) {
     case ActionOnSave.none:
