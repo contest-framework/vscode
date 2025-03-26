@@ -4,6 +4,11 @@
     {
       "type": "test-all",
       "run": "npm run test"
+    },
+    {
+      "type": "test-file",
+      "files": "*.md",
+      "run": "npm exec text-runner {{ file }}"
     }
   ]
 }
