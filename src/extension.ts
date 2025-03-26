@@ -9,23 +9,32 @@ import * as workspace from "./workspace"
 const enum ActionOnSave {
   none,
   testActiveFile,
-  repeatLastTest
+  testActiveFileOnDouble,
+  repeatLastTest,
+  repeatLastTestOnDouble
 }
 
 let actionOnSave: ActionOnSave = ActionOnSave.none
 let lastTest: string | undefined = undefined
+let lastTestTime = 0
+const DOUBLE_THRESHOLD = 500 // how fast two saves need to follow each other to be considered a double-save, in ms
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allOnSave)),
+    vscode.commands.registerCommand("contest-vscode.all-on-double-save", wrapLogger(allOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.active-file-on-double-save", wrapLogger(activeFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.this-file-on-double-save", wrapLogger(thisFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.this-line-once", wrapLogger(thisLineOnce)),
     vscode.commands.registerCommand("contest-vscode.this-line-on-save", wrapLogger(thisLineOnSave)),
+    vscode.commands.registerCommand("contest-vscode.this-line-on-double-save", wrapLogger(thisLineOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.repeat-once", wrapLogger(repeatOnce)),
     vscode.commands.registerCommand("contest-vscode.repeat-on-save", repeatOnSave),
+    vscode.commands.registerCommand("contest-vscode.repeat-on-double-save", repeatOnDoubleSave),
     vscode.commands.registerCommand("contest-vscode.stop", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
@@ -62,14 +71,27 @@ async function allOnSave() {
 }
 
 function documentSaved() {
+  const currentTestTime = Date.now()
+  const msSinceLastTest = currentTestTime - lastTestTime
+  const isDoubleSave = msSinceLastTest < DOUBLE_THRESHOLD
   switch (actionOnSave) {
     case ActionOnSave.none:
       break
     case ActionOnSave.repeatLastTest:
       wrapLogger(repeatOnce)()
       break
+    case ActionOnSave.repeatLastTestOnDouble:
+      if (isDoubleSave) {
+        wrapLogger(repeatOnce)()
+      }
+      break
     case ActionOnSave.testActiveFile:
       wrapLogger(thisFileOnce)()
+      break
+    case ActionOnSave.testActiveFileOnDouble:
+      if (isDoubleSave) {
+        wrapLogger(thisFileOnce)()
+      }
       break
   }
 }
