@@ -46,7 +46,7 @@
         "title": "Contest: Test this file"
       },
       {
-        "command": "contest-vscode.this-file-auto",
+        "command": "contest-vscode.this-file-on-save",
         "title": "Contest: Test this file on save"
       },
       {
@@ -54,7 +54,7 @@
         "title": "Contest: Test this line in this file"
       },
       {
-        "command": "contest-vscode.this-line-auto",
+        "command": "contest-vscode.this-line-on-save",
         "title": "Contest: Test this line in this file on save"
       },
       {
