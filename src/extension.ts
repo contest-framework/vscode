@@ -9,27 +9,52 @@ import * as workspace from "./workspace"
 const enum ActionOnSave {
   none,
   testActiveFile,
-  repeatLastTest
+  testActiveFileOnDouble,
+  repeatLastTest,
+  repeatLastTestOnDouble
 }
 
 let actionOnSave: ActionOnSave = ActionOnSave.none
 let lastTest: string | undefined = undefined
+let lastTestTime = 0
+const DOUBLE_SAVE_THRESHOLD_MS = 500
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.active-file-on-double-save", wrapLogger(activeFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allOnSave)),
+    vscode.commands.registerCommand("contest-vscode.all-on-double-save", wrapLogger(allOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.this-file-on-double-save", wrapLogger(thisFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.this-line-once", wrapLogger(thisLineOnce)),
     vscode.commands.registerCommand("contest-vscode.this-line-on-save", wrapLogger(thisLineOnSave)),
+    vscode.commands.registerCommand("contest-vscode.this-line-on-double-save", wrapLogger(thisLineOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.repeat-once", wrapLogger(repeatOnce)),
     vscode.commands.registerCommand("contest-vscode.repeat-on-save", repeatOnSave),
+    vscode.commands.registerCommand("contest-vscode.repeat-on-double-save", repeatOnDoubleSave),
     vscode.commands.registerCommand("contest-vscode.stop", wrapLogger(stopTest)),
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
+}
+
+async function activeFileOnDoubleSave() {
+  if (actionOnSave === ActionOnSave.testActiveFileOnDouble) {
+    actionOnSave = ActionOnSave.none
+    notification.display("test active file on double-save OFF")
+  } else {
+    actionOnSave = ActionOnSave.testActiveFileOnDouble
+    notification.display("test active file on double-save ON")
+    try {
+      const relPath = workspace.currentFile()
+      await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
+    } catch {
+      // no problem if this command is run without a file open
+    }
+  }
 }
 
 async function activeFileOnSave() {
@@ -54,6 +79,13 @@ async function allOnce() {
   await pipe.send(lastTest)
 }
 
+async function allOnDoubleSave() {
+  notification.display("running all tests on double-save")
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
 async function allOnSave() {
   notification.display("running all tests on save")
   actionOnSave = ActionOnSave.repeatLastTest
@@ -62,14 +94,28 @@ async function allOnSave() {
 }
 
 function documentSaved() {
+  const currentTestTime = Date.now()
+  const msSinceLastTest = currentTestTime - lastTestTime
+  const isDoubleSave = msSinceLastTest < DOUBLE_SAVE_THRESHOLD_MS
+  lastTestTime = currentTestTime
   switch (actionOnSave) {
     case ActionOnSave.none:
       break
     case ActionOnSave.repeatLastTest:
       wrapLogger(repeatOnce)()
       break
+    case ActionOnSave.repeatLastTestOnDouble:
+      if (isDoubleSave) {
+        wrapLogger(repeatOnce)()
+      }
+      break
     case ActionOnSave.testActiveFile:
       wrapLogger(thisFileOnce)()
+      break
+    case ActionOnSave.testActiveFileOnDouble:
+      if (isDoubleSave) {
+        wrapLogger(thisFileOnce)()
+      }
       break
   }
 }
@@ -86,6 +132,16 @@ async function repeatOnce() {
   }
   notification.display("repeating the last test")
   await pipe.send(lastTest)
+}
+
+function repeatOnDoubleSave() {
+  if (actionOnSave === ActionOnSave.repeatLastTestOnDouble) {
+    actionOnSave = ActionOnSave.none
+    notification.display("repeat last test on double-save OFF")
+  } else {
+    actionOnSave = ActionOnSave.repeatLastTestOnDouble
+    notification.display("repeat last test on double-save ON")
+  }
 }
 
 function repeatOnSave() {
@@ -110,6 +166,14 @@ async function thisFileOnce() {
   await pipe.send(lastTest)
 }
 
+async function thisFileOnDoubleSave() {
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath} on double-save`)
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  await pipe.send(lastTest)
+}
+
 async function thisFileOnSave() {
   actionOnSave = ActionOnSave.repeatLastTest
   const relPath = workspace.currentFile()
@@ -122,6 +186,15 @@ async function thisLineOnce() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line}`)
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
+}
+
+async function thisLineOnDoubleSave() {
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  const relPath = workspace.currentFile()
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line} on double-save`)
   lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }

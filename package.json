@@ -38,12 +38,20 @@
         "title": "Contest: Test the active file on save"
       },
       {
+        "command": "contest-vscode.active-file-on-double-save",
+        "title": "Contest: Test the active file on double-save"
+      },
+      {
         "command": "contest-vscode.all-once",
         "title": "Contest: Test everything"
       },
       {
         "command": "contest-vscode.all-on-save",
         "title": "Contest: Test everything on save"
+      },
+      {
+        "command": "contest-vscode.all-on-double-save",
+        "title": "Contest: Test everything on double-save"
       },
       {
         "command": "contest-vscode.this-file-once",
@@ -54,6 +62,10 @@
         "title": "Contest: Test this file on save"
       },
       {
+        "command": "contest-vscode.this-file-on-double-save",
+        "title": "Contest: Test this file on double-save"
+      },
+      {
         "command": "contest-vscode.this-line-once",
         "title": "Contest: Test this line in this file"
       },
@@ -62,12 +74,20 @@
         "title": "Contest: Test this line in this file on save"
       },
       {
+        "command": "contest-vscode.this-line-on-double-save",
+        "title": "Contest: Test this line in this file on double-save"
+      },
+      {
         "command": "contest-vscode.repeat-once",
         "title": "Contest: Repeat the last test"
       },
       {
         "command": "contest-vscode.repeat-on-save",
         "title": "Contest: Start/Stop repeat the last test on save"
+      },
+      {
+        "command": "contest-vscode.repeat-on-double-save",
+        "title": "Contest: Start/Stop repeat the last test on double-save"
       },
       {
         "command": "contest-vscode.stop",

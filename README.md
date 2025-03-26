@@ -25,12 +25,20 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test the active file on save</td>
   </tr>
   <tr>
+    <td><b>active-file-on-double-save</b></td>
+    <td>Test the active file on double-save</td>
+  </tr>
+  <tr>
     <td><b>all-once</b></td>
     <td>Test everything</td>
   </tr>
   <tr>
     <td><b>all-on-save</b></td>
     <td>Test everything on save</td>
+  </tr>
+  <tr>
+    <td><b>all-on-double-save</b></td>
+    <td>Test everything on double-save</td>
   </tr>
   <tr>
     <td><b>this-file-once</b></td>
@@ -41,6 +49,10 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test this file on save</td>
   </tr>
   <tr>
+    <td><b>this-file-on-double-save</b></td>
+    <td>Test this file on double-save</td>
+  </tr>
+  <tr>
     <td><b>this-line-once</b></td>
     <td>Test this line in this file</td>
   </tr>
@@ -49,12 +61,20 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test this line in this file on save</td>
   </tr>
   <tr>
+    <td><b>this-line-on-double-save</b></td>
+    <td>Test this line in this file on double-save</td>
+  </tr>
+  <tr>
     <td><b>repeat-once</b></td>
     <td>Repeat the last test</td>
   </tr>
   <tr>
     <td><b>repeat-on-save</b></td>
     <td>Start/Stop repeat the last test on save</td>
+  </tr>
+  <tr>
+    <td><b>repeat-on-double-save</b></td>
+    <td>Start/Stop repeat the last test on double-save</td>
   </tr>
   <tr>
     <td><b>stop</b></td>
