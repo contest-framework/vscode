@@ -79,6 +79,15 @@ async function quitServer() {
   await pipe.send(`{ "command": "quit" }`)
 }
 
+async function repeatOnce() {
+  if (!lastTest) {
+    notification.display("no test to repeat")
+    return
+  }
+  notification.display("repeating the last test")
+  await pipe.send(lastTest)
+}
+
 function repeatOnSave() {
   if (actionOnSave === ActionOnSave.repeatLastTest) {
     actionOnSave = ActionOnSave.none
@@ -89,18 +98,16 @@ function repeatOnSave() {
   }
 }
 
-async function repeatOnce() {
-  if (!lastTest) {
-    notification.display("no test to repeat")
-    return
-  }
-  notification.display("repeating the last test")
-  await pipe.send(lastTest)
-}
-
 async function stopTest() {
   notification.display("stopping the current test")
   await pipe.send(`{ "command": "stop-test" }`)
+}
+
+async function thisFileOnce() {
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath}`)
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  await pipe.send(lastTest)
 }
 
 async function thisFileOnSave() {
@@ -111,10 +118,11 @@ async function thisFileOnSave() {
   await pipe.send(lastTest)
 }
 
-async function thisFileOnce() {
+async function thisLineOnce() {
   const relPath = workspace.currentFile()
-  notification.display(`testing file ${relPath}`)
-  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line}`)
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
 
@@ -123,14 +131,6 @@ async function thisLineOnSave() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line} on save`)
-  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
-  await pipe.send(lastTest)
-}
-
-async function thisLineOnce() {
-  const relPath = workspace.currentFile()
-  const line = workspace.currentLine() + 1
-  notification.display(`testing function at ${relPath}:${line}`)
   lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
