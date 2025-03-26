@@ -25,8 +25,12 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td>Test everything</td>
   </tr>
   <tr>
-    <td><b>all-auto</b></td>
+    <td><b>all-on-save</b></td>
     <td>Test everything on save</td>
+  </tr>
+  <tr>
+    <td><b>all-on-double-save</b></td>
+    <td>Test everything on double-save</td>
   </tr>
   <tr>
     <td><b>this-file-once</b></td>
