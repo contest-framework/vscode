@@ -32,19 +32,6 @@ export function activate(context: vscode.ExtensionContext) {
   )
 }
 
-async function allOnce() {
-  notification.display("testing all files")
-  lastTest = `{ "command": "test-all" }`
-  await pipe.send(lastTest)
-}
-
-async function allOnSave() {
-  notification.display("running all tests on save")
-  actionOnSave = ActionOnSave.repeatLastTest
-  lastTest = `{ "command": "test-all" }`
-  await pipe.send(lastTest)
-}
-
 async function activeFileOnSave() {
   if (actionOnSave === ActionOnSave.testActiveFile) {
     actionOnSave = ActionOnSave.none
@@ -59,6 +46,19 @@ async function activeFileOnSave() {
       // no problem if this command is run without a file open
     }
   }
+}
+
+async function allOnce() {
+  notification.display("testing all files")
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
+async function allOnSave() {
+  notification.display("running all tests on save")
+  actionOnSave = ActionOnSave.repeatLastTest
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
 }
 
 function documentSaved() {
