@@ -145,7 +145,7 @@ function wrapLogger(f: () => Promise<void>): () => Promise<void> {
         vscode.window.showErrorMessage(e.message)
         if (actionOnSave !== ActionOnSave.none) {
           actionOnSave = ActionOnSave.none
-          notification.display("auto-testing OFF")
+          notification.display("auto-repeat OFF")
         }
       } else {
         throw e
