@@ -180,6 +180,15 @@ async function thisLineOnSave() {
   await pipe.send(lastTest)
 }
 
+async function thisLineOnDoubleSave() {
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  const relPath = workspace.currentFile()
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line} on double save`)
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
+}
+
 async function thisLineOnce() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
