@@ -42,15 +42,15 @@ in the Visual Studio marketplace. Please don't forget to also install the
   </tr>
   <tr>
     <td><b>Test this file</b></td>
-    <td>Tests the file that is active at the time you choose this command</td>
+    <td>Tests the file that is active at the time you choose this command onec</td>
   </tr>
   <tr>
     <td><b>Test this file on save</b></td>
-    <td>Tests the file that is active at the time you run this command each time you save any file in your editor, no matter which file is active when you save</td>
+    <td>Tests the file that is active when you run this command, each time you save any file in your editor, no matter which file is active when you save</td>
   </tr>
   <tr>
     <td><b>Test this file on double-save</b></td>
-    <td></td>
+    <td>Tests the file that is active when you run this command, each time you save any file twice within <a>500</a>ms, no matter which file is active when you save</td>
   </tr>
   <tr>
     <td><b>Test this line in this file</b></td>
