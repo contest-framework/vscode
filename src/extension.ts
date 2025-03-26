@@ -22,6 +22,7 @@ const DOUBLE_THRESHOLD = 500 // how fast two saves need to follow each other to 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.active-file-on-double-save", wrapLogger(activeFileOnDoubleSave)),
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allOnSave)),
     vscode.commands.registerCommand("contest-vscode.all-on-double-save", wrapLogger(allOnDoubleSave)),
@@ -56,6 +57,22 @@ async function activeFileOnSave() {
   }
 }
 
+async function activeFileOnDoubleSave() {
+  if (actionOnSave === ActionOnSave.testActiveFileOnDouble) {
+    actionOnSave = ActionOnSave.none
+    notification.display("test active file on double-save OFF")
+  } else {
+    actionOnSave = ActionOnSave.testActiveFileOnDouble
+    notification.display("test active file on double-save ON")
+    try {
+      const relPath = workspace.currentFile()
+      await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
+    } catch {
+      // no problem if this command is run without a file open
+    }
+  }
+}
+
 async function allOnce() {
   notification.display("testing all files")
   lastTest = `{ "command": "test-all" }`
@@ -65,6 +82,13 @@ async function allOnce() {
 async function allOnSave() {
   notification.display("running all tests on save")
   actionOnSave = ActionOnSave.repeatLastTest
+  lastTest = `{ "command": "test-all" }`
+  await pipe.send(lastTest)
+}
+
+async function allOnDoubleSave() {
+  notification.display("running all tests on double-save")
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
   lastTest = `{ "command": "test-all" }`
   await pipe.send(lastTest)
 }
@@ -119,6 +143,16 @@ function repeatOnSave() {
   }
 }
 
+function repeatOnDoubleSave() {
+  if (actionOnSave === ActionOnSave.repeatLastTestOnDouble) {
+    actionOnSave = ActionOnSave.none
+    notification.display("repeat last test on double-save OFF")
+  } else {
+    actionOnSave = ActionOnSave.repeatLastTestOnDouble
+    notification.display("repeat last test on double-save ON")
+  }
+}
+
 async function stopTest() {
   notification.display("stopping the current test")
   await pipe.send(`{ "command": "stop-test" }`)
@@ -139,6 +173,14 @@ async function thisFileOnSave() {
   await pipe.send(lastTest)
 }
 
+async function thisFileOnDoubleSave() {
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  const relPath = workspace.currentFile()
+  notification.display(`testing file ${relPath} on double-save`)
+  lastTest = `{ "command": "test-file", "file": "${relPath}" }`
+  await pipe.send(lastTest)
+}
+
 async function thisLineOnce() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
@@ -152,6 +194,15 @@ async function thisLineOnSave() {
   const relPath = workspace.currentFile()
   const line = workspace.currentLine() + 1
   notification.display(`testing function at ${relPath}:${line} on save`)
+  lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
+  await pipe.send(lastTest)
+}
+
+async function thisLineOnDoubleSave() {
+  actionOnSave = ActionOnSave.repeatLastTestOnDouble
+  const relPath = workspace.currentFile()
+  const line = workspace.currentLine() + 1
+  notification.display(`testing function at ${relPath}:${line} on double-save`)
   lastTest = `{ "command": "test-file-line", "file": "${relPath}", "line": ${line} }`
   await pipe.send(lastTest)
 }
