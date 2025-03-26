@@ -21,68 +21,68 @@ in the Visual Studio marketplace. Please don't forget to also install the
 
 <table type="commands">
   <tr>
-    <td><b>active-file-on-save</b></td>
-    <td>Test the active file on save</td>
+    <td><b>Test the active file on save</b></td>
+    <td>Runs the <i>test-file</i> test for the file that is currently active the moment you save</td>
   </tr>
   <tr>
-    <td><b>active-file-on-double-save</b></td>
-    <td>Test the active file on double-save</td>
+    <td><b>Test the active file on double-save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>all-once</b></td>
-    <td>Test everything</td>
+    <td><b>Test everything</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>all-on-save</b></td>
-    <td>Test everything on save</td>
+    <td><b>Test everything on save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>all-on-double-save</b></td>
-    <td>Test everything on double-save</td>
+    <td><b>Test everything on double-save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-file-once</b></td>
-    <td>Test this file</td>
+    <td><b>Test this file</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-file-on-save</b></td>
-    <td>Test this file on save</td>
+    <td><b>Test this file on save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-file-on-double-save</b></td>
-    <td>Test this file on double-save</td>
+    <td><b>Test this file on double-save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-line-once</b></td>
-    <td>Test this line in this file</td>
+    <td><b>Test this line in this file</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-line-on-save</b></td>
-    <td>Test this line in this file on save</td>
+    <td><b>Test this line in this file on save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>this-line-on-double-save</b></td>
-    <td>Test this line in this file on double-save</td>
+    <td><b>Test this line in this file on double-save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>repeat-once</b></td>
-    <td>Repeat the last test</td>
+    <td><b>Repeat the last test</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>repeat-on-save</b></td>
-    <td>Start/Stop repeat the last test on save</td>
+    <td><b>Start/Stop repeat the last test on save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>repeat-on-double-save</b></td>
-    <td>Start/Stop repeat the last test on double-save</td>
+    <td><b>Start/Stop repeat the last test on double-save</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>stop</b></td>
-    <td>Stop the current test</td>
+    <td><b>Stop the current test</b></td>
+    <td></td>
   </tr>
   <tr>
-    <td><b>quit</b></td>
-    <td>Quit the Contest server</td>
+    <td><b>Quit the Contest server</b></td>
+    <td></td>
   </tr>
 </table>
 
