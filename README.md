@@ -22,7 +22,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
 <table type="commands">
   <tr>
     <td><b>Test the active file on save</b></td>
-    <td>Runs the <i>test-file</i> test for the file that is currently active the moment you save</td>
+    <td>Runs the <i>test-file</i> test for the file that is active when you save</td>
   </tr>
   <tr>
     <td><b>Test the active file on double-save</b></td>
