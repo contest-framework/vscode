@@ -26,7 +26,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
   </tr>
   <tr>
     <td><b>Test the active file on double-save</b></td>
-    <td></td>
+    <td>Tests the file that is active in your editer when you save twice within <a>500</a>ms</td>
   </tr>
   <tr>
     <td><b>Test everything</b></td>
