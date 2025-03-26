@@ -8,7 +8,7 @@ import * as workspace from "./workspace"
 /** the action that should happen when the user saves a file */
 const enum ActionOnSave {
   none,
-  testCurrentFile,
+  testActiveFile,
   repeatLastTest
 }
 
@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("contest-vscode.all-once", wrapLogger(allOnce)),
     vscode.commands.registerCommand("contest-vscode.all-on-save", wrapLogger(allOnSave)),
-    vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(currentFileOnSave)),
+    vscode.commands.registerCommand("contest-vscode.active-file-on-save", wrapLogger(activeFileOnSave)),
     vscode.commands.registerCommand("contest-vscode.this-file-once", wrapLogger(thisFileOnce)),
     vscode.commands.registerCommand("contest-vscode.this-file-on-save", wrapLogger(thisFileOnSave)),
     vscode.commands.registerCommand("contest-vscode.this-line-once", wrapLogger(thisLineOnce)),
@@ -30,6 +30,22 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("contest-vscode.quit", quitServer),
     vscode.workspace.onDidSaveTextDocument(documentSaved)
   )
+}
+
+async function activeFileOnSave() {
+  if (actionOnSave === ActionOnSave.testActiveFile) {
+    actionOnSave = ActionOnSave.none
+    notification.display("test active file on save OFF")
+  } else {
+    actionOnSave = ActionOnSave.testActiveFile
+    notification.display("test active file on save ON")
+    try {
+      const relPath = workspace.currentFile()
+      await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
+    } catch {
+      // no problem if this command is run without a file open
+    }
+  }
 }
 
 async function allOnce() {
@@ -45,22 +61,6 @@ async function allOnSave() {
   await pipe.send(lastTest)
 }
 
-async function currentFileOnSave() {
-  if (actionOnSave === ActionOnSave.testCurrentFile) {
-    actionOnSave = ActionOnSave.none
-    notification.display("test current file on save OFF")
-  } else {
-    actionOnSave = ActionOnSave.testCurrentFile
-    notification.display("test current file on save ON")
-    try {
-      const relPath = workspace.currentFile()
-      await pipe.send(`{ "command": "test-file", "file": "${relPath}" }`)
-    } catch {
-      // no problem if this command is run without a file open
-    }
-  }
-}
-
 function documentSaved() {
   switch (actionOnSave) {
     case ActionOnSave.none:
@@ -68,7 +68,7 @@ function documentSaved() {
     case ActionOnSave.repeatLastTest:
       wrapLogger(repeatOnce)()
       break
-    case ActionOnSave.testCurrentFile:
+    case ActionOnSave.testActiveFile:
       wrapLogger(thisFileOnce)()
       break
   }
