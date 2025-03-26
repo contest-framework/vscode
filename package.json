@@ -42,7 +42,7 @@
         "title": "Contest: Test everything on save"
       },
       {
-        "command": "contest-vscode.all-on-save",
+        "command": "contest-vscode.all-on-double-save",
         "title": "Contest: Test everything on double-save"
       },
       {
