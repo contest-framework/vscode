@@ -32,7 +32,7 @@ in the Visual Studio marketplace. Please don't forget to also install the
     <td><b>Test everything</b></td>
     <td>Runs all tests once</td>
   </tr>
-  <tr>
+  <tr >
     <td><b>Test everything on save</b></td>
     <td>Runs all tests every time you save any file in your editor</td>
   </tr>

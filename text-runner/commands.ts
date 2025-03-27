@@ -20,7 +20,7 @@ function exportedCommands() {
   for (const command of config.contributes.commands) {
     const name = command.command.replace(commandRE, "")
     const title = command.title.replace(titleRE, "")
-    result.push(`${name}: ${title}`)
+    result.push(title)
   }
   return result
 }
@@ -37,8 +37,7 @@ function documentedCommands(nodes: tr.ast.NodeList) {
       throw new Error(`Row with unexpected length: ${cells}`)
     }
     const command = row.nodesFor(cells[0]).text()
-    const desc = row.nodesFor(cells[1]).text()
-    result.push(`${command}: ${desc}`)
+    result.push(command)
   }
   return result
 }
