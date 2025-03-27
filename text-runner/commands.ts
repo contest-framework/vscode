@@ -40,9 +40,9 @@ function documentedCommands(nodes: tr.ast.NodeList) {
     if (descNodes.hasNodeOfType("anchor_open")) {
       const anchorNode = descNodes.nodeOfTypes("anchor_open")
       const anchorText = descNodes.nodesFor(anchorNode).text()
-      const listedDelay = Number(anchorText)
-      if (listedDelay !== extension.DOUBLE_SAVE_THRESHOLD_MS) {
-        throw new Error(`listed ${listedDelay} ms but its ${extension.DOUBLE_SAVE_THRESHOLD_MS} ms`)
+      const documentedDelay = Number(anchorText)
+      if (documentedDelay !== extension.DOUBLE_SAVE_THRESHOLD_MS) {
+        throw new Error(`documented ${documentedDelay} ms but its ${extension.DOUBLE_SAVE_THRESHOLD_MS} ms`)
       }
     }
   }
