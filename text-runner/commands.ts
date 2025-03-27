@@ -15,10 +15,8 @@ function exportedCommands() {
   const configPath = path.join(dirname, "..", "package.json")
   const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
   const result: string[] = []
-  const commandRE = /^contest-vscode\./
   const titleRE = /^Contest: /
   for (const command of config.contributes.commands) {
-    const name = command.command.replace(commandRE, "")
     const title = command.title.replace(titleRE, "")
     result.push(title)
   }
