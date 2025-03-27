@@ -34,8 +34,9 @@ function documentedCommands(nodes: tr.ast.NodeList) {
     if (cells.length !== 2) {
       throw new Error(`Row with unexpected length: ${cells}`)
     }
-    const command = row.nodesFor(cells[0]).text()
-    result.push(command)
+    const cellNodes = row.nodesFor(cells[0])
+    console.log(cellNodes)
+    result.push(cellNodes.text())
   }
   return result
 }
