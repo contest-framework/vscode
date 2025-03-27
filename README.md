@@ -21,68 +21,68 @@ in the Visual Studio marketplace. Please don't forget to also install the
 
 <table type="commands">
   <tr>
-    <td><b>active-file-on-save</b></td>
-    <td>Test the active file on save</td>
+    <td><b>Test the active file on save</b></td>
+    <td>Tests the file that is active in your editor when you save</td>
   </tr>
   <tr>
-    <td><b>active-file-on-double-save</b></td>
-    <td>Test the active file on double-save</td>
+    <td><b>Test the active file on double-save</b></td>
+    <td>Tests the file that is active in your editer when you save twice within <a>500</a>ms</td>
   </tr>
   <tr>
-    <td><b>all-once</b></td>
-    <td>Test everything</td>
+    <td><b>Test everything</b></td>
+    <td>Runs all tests once</td>
+  </tr>
+  <tr >
+    <td><b>Test everything on save</b></td>
+    <td>Runs all tests every time you save any file in your editor</td>
   </tr>
   <tr>
-    <td><b>all-on-save</b></td>
-    <td>Test everything on save</td>
+    <td><b>Test everything on double-save</b></td>
+    <td>Runs all tests every time you save twice within <a>500</a> milliseconds</td>
   </tr>
   <tr>
-    <td><b>all-on-double-save</b></td>
-    <td>Test everything on double-save</td>
+    <td><b>Test this file</b></td>
+    <td>Tests the file that is active at the time you choose this command onec</td>
   </tr>
   <tr>
-    <td><b>this-file-once</b></td>
-    <td>Test this file</td>
+    <td><b>Test this file on save</b></td>
+    <td>Tests the file that is active when you run this command, each time you save any file in your editor, no matter which file is active when you save</td>
   </tr>
   <tr>
-    <td><b>this-file-on-save</b></td>
-    <td>Test this file on save</td>
+    <td><b>Test this file on double-save</b></td>
+    <td>Tests the file that is active when you run this command, each time you save any file twice within <a>500</a> milliseconds no matter which file is active when you save</td>
   </tr>
   <tr>
-    <td><b>this-file-on-double-save</b></td>
-    <td>Test this file on double-save</td>
+    <td><b>Test this line in this file</b></td>
+    <td>Runs the test for the given line in the currently active file</td>
   </tr>
   <tr>
-    <td><b>this-line-once</b></td>
-    <td>Test this line in this file</td>
+    <td><b>Test this line in this file on save</b></td>
+    <td>Runs the test for the given line in the currently active file, each time you save any file</td>
   </tr>
   <tr>
-    <td><b>this-line-on-save</b></td>
-    <td>Test this line in this file on save</td>
+    <td><b>Test this line in this file on double-save</b></td>
+    <td>Runs the test for the given line in the currently active file, each time you save any file twice within 500 milliseconds</td>
   </tr>
   <tr>
-    <td><b>this-line-on-double-save</b></td>
-    <td>Test this line in this file on double-save</td>
+    <td><b>Repeat the last test</b></td>
+    <td>re-runs the last test that Contest ran, once</td>
   </tr>
   <tr>
-    <td><b>repeat-once</b></td>
-    <td>Repeat the last test</td>
+    <td><b>Start/Stop repeat the last test on save</b></td>
+    <td>re-runs the last test that Contest ran, each time you save any file</td>
   </tr>
   <tr>
-    <td><b>repeat-on-save</b></td>
-    <td>Start/Stop repeat the last test on save</td>
+    <td><b>Start/Stop repeat the last test on double-save</b></td>
+    <td>re-runs the last test that Contest ran, each time you save any file twice within 500 ms</td>
   </tr>
   <tr>
-    <td><b>repeat-on-double-save</b></td>
-    <td>Start/Stop repeat the last test on double-save</td>
+    <td><b>Stop the current test</b></td>
+    <td>If a test is currently running or hanging, stops it</td>
   </tr>
   <tr>
-    <td><b>stop</b></td>
-    <td>Stop the current test</td>
-  </tr>
-  <tr>
-    <td><b>quit</b></td>
-    <td>Quit the Contest server</td>
+    <td><b>Quit the Contest server</b></td>
+    <td>If the Contest server or the terminal/shell that the server runs in hangs, sends a signal to the server to quit</td>
   </tr>
 </table>
 

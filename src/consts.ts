@@ -1,0 +1,1 @@
+export const DOUBLE_SAVE_THRESHOLD_MS = 500
