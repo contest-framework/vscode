@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 
+import { DOUBLE_SAVE_THRESHOLD_MS } from "./consts"
 import * as notification from "./notification"
 import * as pipe from "./pipe"
 import { UserError } from "./user_error"
@@ -17,7 +18,6 @@ const enum ActionOnSave {
 let actionOnSave: ActionOnSave = ActionOnSave.none
 let lastTest: string | undefined = undefined
 let lastTestTime = 0
-const DOUBLE_SAVE_THRESHOLD_MS = 500
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(

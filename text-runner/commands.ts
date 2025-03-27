@@ -3,6 +3,7 @@ import * as fs from "fs"
 import * as path from "path"
 import * as tr from "text-runner"
 import * as url from "url"
+import * as extension from "../out/consts.js"
 
 export function commands(action: tr.actions.Args) {
   const documented = documentedCommands(action.region)
@@ -34,9 +35,16 @@ function documentedCommands(nodes: tr.ast.NodeList) {
     if (cells.length !== 2) {
       throw new Error(`Row with unexpected length: ${cells}`)
     }
-    const cellNodes = row.nodesFor(cells[0])
-    console.log(cellNodes)
-    result.push(cellNodes.text())
+    result.push(row.nodesFor(cells[0]).text())
+    const descNodes = row.nodesFor(cells[1])
+    if (descNodes.hasNodeOfType("anchor_open")) {
+      const anchorNode = descNodes.nodeOfTypes("anchor_open")
+      const anchorText = descNodes.nodesFor(anchorNode).text()
+      const listedDelay = Number(anchorText)
+      if (listedDelay !== extension.DOUBLE_SAVE_THRESHOLD_MS) {
+        throw new Error(`listed ${listedDelay} ms but its ${extension.DOUBLE_SAVE_THRESHOLD_MS} ms`)
+      }
+    }
   }
   return result
 }
