@@ -100,8 +100,8 @@
     ],
     "jsonValidation": [
       {
-        "fileMatch": ".testconfig.json",
-        "url": "./src/testconfig.schema.json"
+        "fileMatch": ".contest.json",
+        "url": "./src/contest.schema.json"
       }
     ]
   },
