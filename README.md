@@ -7,8 +7,7 @@
 This extension is
 [available](https://marketplace.visualstudio.com/items?itemName=kevgo.contest-vscode)
 in the Visual Studio marketplace. Please don't forget to also install the
-<img src="icons/300.png" width="30" height="25" valign="bottom">
-[server](https://github.com/contest/server).
+[Contest server](https://github.com/contest/server).
 
 ### use
 
