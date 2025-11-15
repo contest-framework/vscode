@@ -6,7 +6,7 @@
 
 This extension is available in the
 [Visual Studio marketplace](https://marketplace.visualstudio.com/items?itemName=kevgo.contest-vscode)
-and on [open-vsx](https://open-vsx.org/extension/kevgo/contest-vscode). Please
+and on [Open-VSX](https://open-vsx.org/extension/kevgo/contest-vscode). Please
 don't forget to also install the
 [Contest server](https://github.com/contest/server).
 
